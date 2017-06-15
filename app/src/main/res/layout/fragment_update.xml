@@ -5,10 +5,201 @@
     android:layout_height="match_parent"
     tools:context="com.example.speats.UpdateFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/smallTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="18dp"
+            android:layout_marginTop="19dp"
+            android:text="Small Table"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="20sp" />
+
+        <View
+            android:id="@+id/firstDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/smallTable"
+            android:background="@android:color/holo_blue_dark" />
+
+        <TextView
+            android:id="@+id/smallAvailability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="47dp"
+            android:text="Available :"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_below="@id/smallTable"
+            android:layout_alignStart="@id/smallTable" />
+
+        <TextView
+            android:id="@+id/mediumTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="48dp"
+            android:text="Medium Table"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="20sp"
+            android:layout_below="@id/smallAvailability"
+            android:layout_alignStart="@id/smallAvailability" />
+
+        <View
+            android:id="@+id/secondDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/mediumTable"
+            android:background="@android:color/holo_blue_dark" />
+
+        <TextView
+            android:id="@+id/mediumAvailability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available :"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="47dp"
+            android:layout_centerVertical="true"
+            android:layout_alignStart="@+id/mediumTable"
+            android:layout_below="@id/mediumTable"/>
+
+        <TextView
+            android:id="@+id/largeTable"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Large Table"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="20sp"
+            android:layout_marginTop="47dp"
+            android:layout_below="@id/mediumAvailability"
+            android:layout_alignStart="@id/mediumAvailability" />
+
+        <View
+            android:id="@+id/thirdDivider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/largeTable"
+            android:background="@android:color/holo_blue_dark" />
+
+
+        <TextView
+            android:id="@+id/largeAvailability"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available :"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_below="@id/largeTable"
+            android:layout_marginTop="45dp"
+            android:layout_alignStart="@id/largeTable" />
+
+        <Button
+            android:id="@+id/increaseSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textSize="24sp"
+            android:layout_marginEnd="30dp"
+            android:layout_alignBaseline="@+id/decreaseSmall"
+            android:layout_alignBottom="@+id/decreaseSmall"
+            android:layout_alignParentEnd="true" />
+
+        <Button
+            android:id="@+id/decreaseSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="24sp"
+            android:layout_alignBaseline="@+id/smallAvailability"
+            android:layout_alignBottom="@+id/smallAvailability"
+            android:layout_toStartOf="@+id/increaseSmall" />
+
+        <Button
+            android:id="@+id/increaseMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textSize="24sp"
+            android:layout_alignBaseline="@+id/decreaseMedium"
+            android:layout_alignBottom="@+id/decreaseMedium"
+            android:layout_toEndOf="@+id/decreaseSmall" />
+
+        <Button
+            android:id="@+id/decreaseMedium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="24sp"
+            android:layout_alignBaseline="@+id/mediumAvailability"
+            android:layout_alignBottom="@+id/mediumAvailability"
+            android:layout_toStartOf="@+id/increaseMedium" />
+
+        <Button
+            android:id="@+id/increaseLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="+"
+            android:textSize="24sp"
+            android:layout_alignBaseline="@+id/decreaseLarge"
+            android:layout_alignBottom="@+id/decreaseLarge"
+            android:layout_toEndOf="@+id/decreaseMedium" />
+
+        <Button
+            android:id="@+id/decreaseLarge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="-"
+            android:textSize="24sp"
+            android:layout_alignBaseline="@+id/largeAvailability"
+            android:layout_alignBottom="@+id/largeAvailability"
+            android:layout_toStartOf="@+id/increaseLarge" />
+
+        <TextView
+            android:id="@+id/smallNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/mediumTable"
+            android:layout_toEndOf="@+id/smallAvailability"
+            android:layout_marginStart="20dp"
+            android:text="5"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/mediumNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/largeTable"
+            android:layout_toEndOf="@+id/mediumAvailability"
+            android:layout_marginStart="20dp"
+            android:text="5"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/largeNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/largeAvailability"
+            android:layout_toEndOf="@+id/largeAvailability"
+            android:layout_marginStart="20dp"
+            android:text="5"
+            android:textColor="@android:color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
 
 </FrameLayout>

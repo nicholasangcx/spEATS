@@ -7,4 +7,8 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_view">Enter search</string>
+    <string name="alert_okay">Okay</string>
+    <string name="alert_cancel">Cancel</string>
+    <string name="alert_edit">Edit</string>
+    <string name="alert_delete">Delete</string>
 </resources>

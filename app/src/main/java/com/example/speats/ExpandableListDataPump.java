@@ -16,7 +16,6 @@ public class ExpandableListDataPump {
         orderno889.add("Pakistan");
         orderno889.add("Australia");
         orderno889.add("England");
-        orderno889.add("South Africa");
 
         List<String> orderno890 = new ArrayList<String>();
         orderno890.add("Brazil");

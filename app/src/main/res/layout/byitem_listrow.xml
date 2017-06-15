@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:padding="6dip" >
+
+
+    <TextView
+        android:id="@+id/sn"
+        android:layout_width="30dip"
+        android:layout_height="52dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:text="Sn"
+        android:textColor="@android:color/black" />
+
+    <TextView
+        android:id="@+id/foodName"
+        android:layout_width="200dip"
+        android:layout_height="52dip"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/sn"
+        android:gravity="center_vertical"
+        android:text="Food Name"
+        android:textColor="@android:color/black"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/foodQuantity"
+        android:layout_width="54dip"
+        android:layout_height="52dip"
+        android:layout_alignParentTop="true"
+        android:layout_alignWithParentIfMissing="true"
+        android:layout_toRightOf="@id/foodName"
+        android:gravity="center_vertical"
+        android:text="Quantity"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/foodTime"
+        android:layout_width="wrap_content"
+        android:layout_height="52dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_vertical"
+        android:text="Time"
+        android:textColor="@android:color/black" />
+        <!--android:layout_toRightOf="@id/foodQuantity" -->
+
+
+</RelativeLayout>
