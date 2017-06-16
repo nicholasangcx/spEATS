@@ -40,8 +40,8 @@ public class ByItemCustomAdapter extends ArrayAdapter<FoodItem> {
 
         if (convertView == null) {
             viewHolder = new ViewHolder();
-            LayoutInflater inflator = LayoutInflater.from(getContext());
-            convertView = inflator.inflate(R.layout.byitem_listrow, parent, false);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.byitem_listrow, parent, false);
             viewHolder.sn = (TextView) convertView.findViewById(R.id.sn);
             viewHolder.foodName = (TextView) convertView.findViewById(R.id.foodName);
             viewHolder.quantity = (TextView) convertView.findViewById(R.id.foodQuantity);

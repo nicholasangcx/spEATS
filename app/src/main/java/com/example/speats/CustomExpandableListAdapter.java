@@ -4,8 +4,6 @@ package com.example.speats;
  * Created by Nicholas on 7/6/2017.
  */
 
-import java.util.HashMap;
-import java.util.List;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -14,23 +12,33 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.example.speats.Models.FoodOrder;
+
+import java.util.ArrayList;
+
 public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
-    private List<String> expandableListTitle;
-    private HashMap<String, List<String>> expandableListDetail;
+    private ArrayList<String> expandableListTitle;
+    private ArrayList<ArrayList<FoodOrder>>  expandableListDetail;
 
-    public CustomExpandableListAdapter(Context context, List<String> expandableListTitle,
-                                       HashMap<String, List<String>> expandableListDetail) {
+    private static class ViewHolder {
+        TextView sn;
+        TextView name;
+        TextView quantity;
+        TextView price;
+    }
+
+    public CustomExpandableListAdapter(Context context, ArrayList<String> expandableListTitle,
+                                       ArrayList<ArrayList<FoodOrder>> expandableListDetail) {
         this.context = context;
-        this.expandableListTitle = expandableListTitle;
         this.expandableListDetail = expandableListDetail;
+        this.expandableListTitle = expandableListTitle;
     }
 
     @Override
     public Object getChild(int listPosition, int expandedListPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
-                .get(expandedListPosition);
+        return this.expandableListDetail.get(listPosition).get(expandedListPosition);
     }
 
     @Override
@@ -41,22 +49,28 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final String expandedListText = (String) getChild(listPosition, expandedListPosition);
-        if (convertView == null) {
-            LayoutInflater layoutInflater = (LayoutInflater) this.context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.byorder_listitem, null);
-        }
-        TextView expandedListTextView = (TextView) convertView
-                .findViewById(R.id.expandedListItem);
-        expandedListTextView.setText(expandedListText);
+        final FoodOrder foodOrder = (FoodOrder) getChild(listPosition, expandedListPosition);
+        ViewHolder viewHolder;
+
+        viewHolder = new ViewHolder();
+        LayoutInflater layoutInflater = (LayoutInflater) this.context
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        convertView = layoutInflater.inflate(R.layout.byorder_listitem, null);
+        viewHolder.sn = (TextView) convertView.findViewById(R.id.byorder_sn);
+        viewHolder.name = (TextView) convertView.findViewById(R.id.byorder_name);
+        viewHolder.quantity = (TextView) convertView.findViewById(R.id.byorder_quantity);
+        viewHolder.price = (TextView) convertView.findViewById(R.id.byorder_price);
+
+        viewHolder.sn.setText(foodOrder.getSn());
+        viewHolder.name.setText(foodOrder.getName());
+        viewHolder.quantity.setText(foodOrder.getQuantity());
+        viewHolder.price.setText(foodOrder.getPrice());
         return convertView;
     }
 
     @Override
     public int getChildrenCount(int listPosition) {
-        return this.expandableListDetail.get(this.expandableListTitle.get(listPosition))
-                .size();
+        return this.expandableListDetail.get(listPosition).size();
     }
 
     @Override
@@ -99,4 +113,9 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
     }
+
+    public void updateByOrderList() {
+        notifyDataSetChanged();
+    }
+
 }

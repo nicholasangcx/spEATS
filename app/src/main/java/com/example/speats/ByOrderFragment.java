@@ -4,27 +4,28 @@ package com.example.speats;
  * Created by Nicholas on 4/6/2017.
  */
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import android.widget.ExpandableListAdapter;
+import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.example.speats.Models.FoodOrder;
+
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 
 public class ByOrderFragment extends Fragment {
 
     ExpandableListView expandableListView;
-    ExpandableListAdapter expandableListAdapter;
-    List<String> expandableListTitle;
-    HashMap<String, List<String>> expandableListDetail;
+    private static CustomExpandableListAdapter expandableListAdapter;
+    ArrayList<String> expandableListTitle;
+    ArrayList<ArrayList<FoodOrder>> expandableListDetail;
 
     public static ByOrderFragment newInstance(int position) {
         ByOrderFragment fragment = new ByOrderFragment();
@@ -54,8 +55,43 @@ public class ByOrderFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_byorder, container, false);
 
         expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
-        expandableListDetail = ExpandableListDataPump.getData();
-        expandableListTitle = new ArrayList<String>(expandableListDetail.keySet());
+       // expandableListDetail = ExpandableListDataPump.getData();
+
+        expandableListDetail = new ArrayList<ArrayList<FoodOrder>>();
+        expandableListTitle = new ArrayList<String>();
+
+        ArrayList<FoodOrder> orderno889 = new ArrayList<FoodOrder>();
+        FoodOrder order1 = new FoodOrder("1","Nasi Lemak","x1","$5.00");
+        FoodOrder order2 = new FoodOrder("1","Fries","x1","$3.00");
+        FoodOrder order3 = new FoodOrder("2","Iced Milo","x1","$2.00");
+        orderno889.add(order1);
+        orderno889.add(order2);
+        orderno889.add(order3);
+        expandableListDetail.add(orderno889);
+        expandableListTitle.add("Order No. 889");
+
+        ArrayList<FoodOrder> orderno890 = new ArrayList<FoodOrder>();
+        FoodOrder order4 = new FoodOrder("1","Chicken Pataya","x1","$5.00");
+        FoodOrder order5 = new FoodOrder("2","Prata","x1","$1.00");
+        FoodOrder order6 = new FoodOrder("3","Fries","x1","$3.00");
+        FoodOrder order7 = new FoodOrder("4","Iced Milo","x1","$2.00");
+        orderno890.add(order4);
+        orderno890.add(order5);
+        orderno890.add(order6);
+        orderno890.add(order7);
+        expandableListDetail.add(orderno890);
+        expandableListTitle.add("Order No. 890");
+
+        ArrayList<FoodOrder> orderno891 = new ArrayList<FoodOrder>();
+        FoodOrder order8 = new FoodOrder("1","Prata","x1","$1.00");
+        FoodOrder order9 = new FoodOrder("2","Fries","x1","$3.00");
+        FoodOrder order10 = new FoodOrder("3","Iced Lemon Tea","x1","$2.00");
+        orderno891.add(order8);
+        orderno891.add(order9);
+        orderno891.add(order10);
+        expandableListDetail.add(orderno891);
+        expandableListTitle.add("Order No. 891");
+
         expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
@@ -79,22 +115,46 @@ public class ByOrderFragment extends Fragment {
             }
         });
 
-        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+        expandableListView.setOnItemLongClickListener(new ExpandableListView.OnItemLongClickListener() {
+
             @Override
-            public boolean onChildClick(ExpandableListView parent, View v,
-                                        int groupPosition, int childPosition, long id) {
-                Toast.makeText(
-                        getActivity().getApplicationContext(),
-                        expandableListTitle.get(groupPosition)
-                                + " -> "
-                                + expandableListDetail.get(
-                                expandableListTitle.get(groupPosition)).get(
-                                childPosition), Toast.LENGTH_SHORT
-                ).show();
+            public boolean onItemLongClick( AdapterView<?> parent, View view, int position, long id) {
+
+                long packedPosition = expandableListView.getExpandableListPosition(position);
+                int itemType = ExpandableListView.getPackedPositionType(packedPosition);
+                final int groupPosition = ExpandableListView.getPackedPositionGroup(packedPosition);
+
+        /*  if group item clicked */
+                if (itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
+                    AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
+                    ad.setCancelable(false);
+                    ad.setTitle("Warning!");
+                    ad.setMessage("Only delete if order has been completed or cancelled");
+                    ad.setPositiveButton(getActivity().getString(R.string.alert_delete), new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            expandableListTitle.remove(groupPosition);
+                            expandableListDetail.remove(groupPosition);
+                            dialog.dismiss();
+                            update();
+                        }
+                    });
+                    ad.setNegativeButton(getActivity().getString(R.string.alert_cancel), new DialogInterface.OnClickListener() {
+
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    ad.show();
+                }
+
                 return false;
             }
         });
-
         return view;
+    }
+
+    private void update() {
+        expandableListAdapter.updateByOrderList();
     }
 }

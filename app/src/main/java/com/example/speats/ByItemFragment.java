@@ -58,12 +58,12 @@ public class ByItemFragment extends Fragment {
         foodItems= new ArrayList<>();
 
         foodItems.add(new FoodItem("Sn", "Item", "Quantity","Time"));
-        foodItems.add(new FoodItem("1", "Nasi Lemak", "2","16:00"));
-        foodItems.add(new FoodItem("2", "Chicken Pattaya", "3","16:15"));
+        foodItems.add(new FoodItem("1", "Nasi Lemak", "1","16:00"));
+        foodItems.add(new FoodItem("2", "Chicken Pataya", "1","16:15"));
         foodItems.add(new FoodItem("3", "Prata", "2","16:30"));
         foodItems.add(new FoodItem("4","Fries","3","16:45"));
-        foodItems.add(new FoodItem("5", "Chicken Wings", "2","17:00"));
-        foodItems.add(new FoodItem("6", "Kampung Fried Rice", "1","17:15"));
+        foodItems.add(new FoodItem("5", "Iced Milo", "2","17:00"));
+        foodItems.add(new FoodItem("6", "Iced Lemon Tea", "1","17:15"));
 
 
         adapter= new ByItemCustomAdapter(foodItems,getActivity().getApplicationContext());
