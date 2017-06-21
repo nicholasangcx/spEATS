@@ -1,4 +1,4 @@
-package com.example.speats;
+package com.example.speats.Adapters;
 
 /**
  * Created by Nicholas on 7/6/2017.
@@ -13,6 +13,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.example.speats.Models.FoodOrder;
+import com.example.speats.R;
 
 import java.util.ArrayList;
 
@@ -30,7 +31,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public CustomExpandableListAdapter(Context context, ArrayList<String> expandableListTitle,
-                                       ArrayList<ArrayList<FoodOrder>> expandableListDetail) {
+                                      ArrayList<ArrayList<FoodOrder>> expandableListDetail) {
         this.context = context;
         this.expandableListDetail = expandableListDetail;
         this.expandableListTitle = expandableListTitle;
@@ -55,7 +56,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         viewHolder = new ViewHolder();
         LayoutInflater layoutInflater = (LayoutInflater) this.context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        convertView = layoutInflater.inflate(R.layout.byorder_listitem, null);
+        convertView = layoutInflater.inflate(R.layout.byorder_listitem, parent, false);
         viewHolder.sn = (TextView) convertView.findViewById(R.id.byorder_sn);
         viewHolder.name = (TextView) convertView.findViewById(R.id.byorder_name);
         viewHolder.quantity = (TextView) convertView.findViewById(R.id.byorder_quantity);
@@ -95,7 +96,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         if (convertView == null) {
             LayoutInflater layoutInflater = (LayoutInflater) this.context.
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            convertView = layoutInflater.inflate(R.layout.byorder_listgroup, null);
+            convertView = layoutInflater.inflate(R.layout.byorder_listgroup, parent, false);
         }
         TextView listTitleTextView = (TextView) convertView
                 .findViewById(R.id.listTitle);

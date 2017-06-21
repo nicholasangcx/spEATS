@@ -1,4 +1,4 @@
-package com.example.speats;
+package com.example.speats.Fragments;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,7 +10,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.speats.Adapters.ByItemCustomAdapter;
 import com.example.speats.Models.FoodItem;
+import com.example.speats.R;
 
 import java.util.ArrayList;
 
@@ -41,8 +43,14 @@ public class ByItemFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-           /* mPosition = getArguments().getInt("position");*/
+            //mPosition = getArguments().getInt("position");
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("foodItem", foodItems);
+        super.onSaveInstanceState(outState);
     }
 
     @Override
@@ -50,21 +58,23 @@ public class ByItemFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_byitem, container, false);
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
-
         listView=(ListView) view.findViewById(R.id.list);
 
-        foodItems= new ArrayList<>();
+        if (savedInstanceState != null) {
+            foodItems = savedInstanceState.getParcelableArrayList("foodItem");
+        }
 
-        foodItems.add(new FoodItem("Sn", "Item", "Quantity","Time"));
-        foodItems.add(new FoodItem("1", "Nasi Lemak", "1","16:00"));
-        foodItems.add(new FoodItem("2", "Chicken Pataya", "1","16:15"));
-        foodItems.add(new FoodItem("3", "Prata", "2","16:30"));
-        foodItems.add(new FoodItem("4","Fries","3","16:45"));
-        foodItems.add(new FoodItem("5", "Iced Milo", "2","17:00"));
-        foodItems.add(new FoodItem("6", "Iced Lemon Tea", "1","17:15"));
+        else {
+            foodItems = new ArrayList<>();
 
+            foodItems.add(new FoodItem("Sn", "Item", "Quantity", "Time"));
+            foodItems.add(new FoodItem("1", "Nasi Lemak", "1", "16:00"));
+            foodItems.add(new FoodItem("2", "Chicken Pataya", "1", "16:15"));
+            foodItems.add(new FoodItem("3", "Prata", "2", "16:30"));
+            foodItems.add(new FoodItem("4", "Fries", "3", "16:45"));
+            foodItems.add(new FoodItem("5", "Iced Milo", "2", "17:00"));
+            foodItems.add(new FoodItem("6", "Iced Lemon Tea", "1", "17:15"));
+        }
 
         adapter= new ByItemCustomAdapter(foodItems,getActivity().getApplicationContext());
 

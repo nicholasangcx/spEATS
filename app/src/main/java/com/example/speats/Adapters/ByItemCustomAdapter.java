@@ -1,4 +1,4 @@
-package com.example.speats;
+package com.example.speats.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.speats.Models.FoodItem;
+import com.example.speats.R;
 
 import java.util.ArrayList;
 

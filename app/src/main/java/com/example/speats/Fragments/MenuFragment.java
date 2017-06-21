@@ -1,15 +1,21 @@
-package com.example.speats;
+package com.example.speats.Fragments;
+
+/**
+ * Created by Nicholas on 4/6/2017.
+ */
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class OrdersFragment extends Fragment {
+import com.example.speats.R;
+
+public class MenuFragment extends Fragment {
 
 
     @Override
@@ -17,7 +23,7 @@ public class OrdersFragment extends Fragment {
                              Bundle savedInstanceState) {
 
 
-        View view = inflater.inflate(R.layout.fragment_orders, container, false);
+        View view = inflater.inflate(R.layout.fragment_menu, container, false);
         ViewPager mViewPager = (ViewPager) view.findViewById(R.id.container_main);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -26,8 +32,14 @@ public class OrdersFragment extends Fragment {
 
     }
 
+    public static MenuFragment newInstance() {
+        MenuFragment fragment = new MenuFragment();
 
-    private class SectionsPagerAdapter extends FragmentPagerAdapter {
+        return fragment;
+    }
+
+
+    private class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -37,9 +49,9 @@ public class OrdersFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return ByOrderFragment.newInstance(1);
+                    return ExistingMenuFragment.newInstance(1);
                 default:
-                    return ByItemFragment.newInstance(2);
+                    return EditMenuFragment.newInstance(2);
             }
 
         }
@@ -55,9 +67,9 @@ public class OrdersFragment extends Fragment {
 
             switch (position) {
                 case 0:
-                    return "By Order";
+                    return "Existing";
                 default:
-                    return "By Item";
+                    return "Add New";
             }
 
 

@@ -1,4 +1,4 @@
-package com.example.speats;
+package com.example.speats.Fragments;
 
 /**
  * Created by Nicholas on 4/6/2017.
@@ -15,7 +15,9 @@ import android.widget.AdapterView;
 import android.widget.ExpandableListView;
 import android.widget.Toast;
 
+import com.example.speats.Adapters.CustomExpandableListAdapter;
 import com.example.speats.Models.FoodOrder;
+import com.example.speats.R;
 
 import java.util.ArrayList;
 
@@ -48,6 +50,12 @@ public class ByOrderFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable("details", expandableListDetail);
+        outState.putStringArrayList("title", expandableListTitle);
+        super.onSaveInstanceState(outState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -55,26 +63,31 @@ public class ByOrderFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_byorder, container, false);
 
         expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
-       // expandableListDetail = ExpandableListDataPump.getData();
 
-        expandableListDetail = new ArrayList<ArrayList<FoodOrder>>();
-        expandableListTitle = new ArrayList<String>();
+        if (savedInstanceState != null) {
+            expandableListDetail = (ArrayList<ArrayList<FoodOrder>>) savedInstanceState.getSerializable("details");
+            expandableListTitle = savedInstanceState.getStringArrayList("title");
+        }
 
-        ArrayList<FoodOrder> orderno889 = new ArrayList<FoodOrder>();
-        FoodOrder order1 = new FoodOrder("1","Nasi Lemak","x1","$5.00");
-        FoodOrder order2 = new FoodOrder("1","Fries","x1","$3.00");
-        FoodOrder order3 = new FoodOrder("2","Iced Milo","x1","$2.00");
+        else {
+        expandableListDetail = new ArrayList<>();
+        expandableListTitle = new ArrayList<>();
+
+        ArrayList<FoodOrder> orderno889 = new ArrayList<>();
+        FoodOrder order1 = new FoodOrder("1", "Nasi Lemak", "x1", "$5.00");
+        FoodOrder order2 = new FoodOrder("2", "Fries", "x1", "$3.00");
+        FoodOrder order3 = new FoodOrder("3", "Iced Milo", "x1", "$2.00");
         orderno889.add(order1);
         orderno889.add(order2);
         orderno889.add(order3);
         expandableListDetail.add(orderno889);
         expandableListTitle.add("Order No. 889");
 
-        ArrayList<FoodOrder> orderno890 = new ArrayList<FoodOrder>();
-        FoodOrder order4 = new FoodOrder("1","Chicken Pataya","x1","$5.00");
-        FoodOrder order5 = new FoodOrder("2","Prata","x1","$1.00");
-        FoodOrder order6 = new FoodOrder("3","Fries","x1","$3.00");
-        FoodOrder order7 = new FoodOrder("4","Iced Milo","x1","$2.00");
+        ArrayList<FoodOrder> orderno890 = new ArrayList<>();
+        FoodOrder order4 = new FoodOrder("1", "Chicken Pataya", "x1", "$5.00");
+        FoodOrder order5 = new FoodOrder("2", "Prata", "x1", "$1.00");
+        FoodOrder order6 = new FoodOrder("3", "Fries", "x1", "$3.00");
+        FoodOrder order7 = new FoodOrder("4", "Iced Milo", "x1", "$2.00");
         orderno890.add(order4);
         orderno890.add(order5);
         orderno890.add(order6);
@@ -82,15 +95,16 @@ public class ByOrderFragment extends Fragment {
         expandableListDetail.add(orderno890);
         expandableListTitle.add("Order No. 890");
 
-        ArrayList<FoodOrder> orderno891 = new ArrayList<FoodOrder>();
-        FoodOrder order8 = new FoodOrder("1","Prata","x1","$1.00");
-        FoodOrder order9 = new FoodOrder("2","Fries","x1","$3.00");
-        FoodOrder order10 = new FoodOrder("3","Iced Lemon Tea","x1","$2.00");
+        ArrayList<FoodOrder> orderno891 = new ArrayList<>();
+        FoodOrder order8 = new FoodOrder("1", "Prata", "x1", "$1.00");
+        FoodOrder order9 = new FoodOrder("2", "Fries", "x1", "$3.00");
+        FoodOrder order10 = new FoodOrder("3", "Iced Lemon Tea", "x1", "$2.00");
         orderno891.add(order8);
         orderno891.add(order9);
         orderno891.add(order10);
         expandableListDetail.add(orderno891);
         expandableListTitle.add("Order No. 891");
+        }
 
         expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
         expandableListView.setAdapter(expandableListAdapter);

@@ -1,4 +1,4 @@
-package com.example.speats;
+package com.example.speats.Fragments;
 
 /**
  * Created by Nicholas on 4/6/2017.
@@ -11,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.speats.R;
 
 public class UpdateFragment extends Fragment implements View.OnClickListener {
 

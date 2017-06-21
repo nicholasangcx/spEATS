@@ -1,4 +1,4 @@
-package com.example.speats;
+package com.example.speats.Fragments;
 
 /**
  * Created by Nicholas on 4/6/2017.
@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.speats.Adapters.ExistingMenuCustomAdapter;
 import com.example.speats.Models.FoodMenu;
+import com.example.speats.R;
 
 import java.util.ArrayList;
 
@@ -47,22 +49,34 @@ public class ExistingMenuFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        outState.putParcelableArrayList("foodMenu", foodMenu);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_existingmenu, container, false);
 
         listView = (ListView) view.findViewById(R.id.list);
 
-        foodMenu = new ArrayList<>();
+        if (savedInstanceState != null) {
+            foodMenu = savedInstanceState.getParcelableArrayList("foodMenu");
+        }
 
-        foodMenu.add(new FoodMenu("Nasi Goreng Kampung", "$5.00"));
-        foodMenu.add(new FoodMenu("Nasi Goreng Pataya", "$5.00"));
-        foodMenu.add(new FoodMenu("Nasi Goreng Ayam", "$5.00"));
-        foodMenu.add(new FoodMenu("Nasi Goreng USA", "$5.00"));
-        foodMenu.add(new FoodMenu("Nasi Goreng Cina", "$5.00"));
-        foodMenu.add(new FoodMenu("Nasi Lemak Ayam", "$7.00"));
-        foodMenu.add(new FoodMenu("Cheese Fries", "$2.00"));
+        else {
 
+            foodMenu = new ArrayList<>();
+
+            foodMenu.add(new FoodMenu("Nasi Goreng Kampung", "$5.00"));
+            foodMenu.add(new FoodMenu("Nasi Goreng Pataya", "$5.00"));
+            foodMenu.add(new FoodMenu("Nasi Goreng Ayam", "$5.00"));
+            foodMenu.add(new FoodMenu("Nasi Goreng USA", "$5.00"));
+            foodMenu.add(new FoodMenu("Nasi Goreng Cina", "$5.00"));
+            foodMenu.add(new FoodMenu("Nasi Lemak Ayam", "$7.00"));
+            foodMenu.add(new FoodMenu("Cheese Fries", "$2.00"));
+        }
 
         adapter = new ExistingMenuCustomAdapter(foodMenu, getActivity().getApplicationContext());
 

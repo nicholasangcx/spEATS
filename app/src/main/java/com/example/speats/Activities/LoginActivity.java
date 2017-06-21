@@ -1,9 +1,11 @@
-package com.example.speats;
+package com.example.speats.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import com.example.speats.R;
 
 public class LoginActivity extends AppCompatActivity {
 

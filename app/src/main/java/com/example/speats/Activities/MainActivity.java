@@ -1,12 +1,17 @@
-package com.example.speats;
+package com.example.speats.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+
+import com.example.speats.Fragments.MenuFragment;
+import com.example.speats.Fragments.OrdersFragment;
+import com.example.speats.Fragments.UpdateFragment;
+import com.example.speats.R;
 
 /**
  * Created by Nicholas on 3/6/2017.
@@ -28,11 +33,10 @@ public class MainActivity extends AppCompatActivity {
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
-
     }
 
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -43,11 +47,11 @@ public class MainActivity extends AppCompatActivity {
 
             switch (position) {
                 case 0:
-                    return new OrdersFragment();
+                    return OrdersFragment.newInstance();
                 case 1:
                     return UpdateFragment.newInstance();
                 default:
-                    return new MenuFragment();
+                    return MenuFragment.newInstance();
             }
         }
 
