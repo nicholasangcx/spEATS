@@ -59,6 +59,8 @@ public class ByItemFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_byitem, container, false);
 
         listView=(ListView) view.findViewById(R.id.list);
+        ViewGroup header = (ViewGroup)inflater.inflate(R.layout.byitem_header, listView, false);
+        listView.addHeaderView(header, null, false);
 
         if (savedInstanceState != null) {
             foodItems = savedInstanceState.getParcelableArrayList("foodItem");
@@ -67,7 +69,6 @@ public class ByItemFragment extends Fragment {
         else {
             foodItems = new ArrayList<>();
 
-            foodItems.add(new FoodItem("Sn", "Item", "Quantity", "Time"));
             foodItems.add(new FoodItem("1", "Nasi Lemak", "1", "16:00"));
             foodItems.add(new FoodItem("2", "Chicken Pataya", "1", "16:15"));
             foodItems.add(new FoodItem("3", "Prata", "2", "16:30"));

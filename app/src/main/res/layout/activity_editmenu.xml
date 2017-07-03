@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.speats.Activities.EditMenuActivity">
+
+
+    <TextView
+        android:id="@+id/editMenuHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="TextView"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/editMenuNameHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editMenuHeader"
+        android:layout_marginTop="38dp"
+        android:text="Enter new item name:" />
+
+    <EditText
+        android:id="@+id/editMenuNameInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editMenuNameHeader"
+        android:layout_marginTop="21dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <TextView
+        android:id="@+id/editMenuPriceHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:text="Enter new item price:"
+        android:layout_below="@+id/editMenuNameInput"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editMenuPriceInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editMenuPriceHeader"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:inputType="numberDecimal" />
+
+    <Button
+        android:id="@+id/editMenuButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editMenuPriceInput"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:text="Confirm" />
+
+</RelativeLayout>

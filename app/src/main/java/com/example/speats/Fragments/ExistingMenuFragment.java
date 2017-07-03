@@ -5,6 +5,7 @@ package com.example.speats.Fragments;
  */
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -14,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.speats.Activities.EditMenuActivity;
 import com.example.speats.Adapters.ExistingMenuCustomAdapter;
 import com.example.speats.Models.FoodMenu;
 import com.example.speats.R;
@@ -61,6 +63,7 @@ public class ExistingMenuFragment extends Fragment {
 
         listView = (ListView) view.findViewById(R.id.list);
 
+        //Replace by data from the database
         if (savedInstanceState != null) {
             foodMenu = savedInstanceState.getParcelableArrayList("foodMenu");
         }
@@ -84,7 +87,7 @@ public class ExistingMenuFragment extends Fragment {
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapter, View v, int position,
+            public void onItemClick(AdapterView<?> adapter, final View v, final int position,
                                     long arg3) {
                 final FoodMenu item = (FoodMenu) adapter.getItemAtPosition(position);
                 AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
@@ -94,6 +97,10 @@ public class ExistingMenuFragment extends Fragment {
                 ad.setNegativeButton(getActivity().getString(R.string.alert_edit), new DialogInterface.OnClickListener() {
                     //edit the item, opens up new activity to edit
                     public void onClick(DialogInterface dialog, int which) {
+                        FoodMenu value =(FoodMenu) listView.getItemAtPosition(position);
+                        Intent intent = new Intent(getActivity(), EditMenuActivity.class);
+                        intent.putExtra("food_itemName", value);
+                        startActivity(intent);
                         dialog.dismiss();
                     }
                 });

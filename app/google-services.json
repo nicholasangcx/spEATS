@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "398088374402",
+    "firebase_url": "https://speats-5d691.firebaseio.com",
+    "project_id": "speats-5d691",
+    "storage_bucket": "speats-5d691.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:398088374402:android:afe317b1fdc239bc",
+        "android_client_info": {
+          "package_name": "com.example.speats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "398088374402-sq1eq8njog15e7ka3ushh7tr080g3atr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCj4urLXxFvKPYNIEMMaViof84Ar4Ci4rc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

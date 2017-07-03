@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * Created by Nicholas on 13/6/2017.
  */
 
-public class ByItemCustomAdapter extends ArrayAdapter<FoodItem> {
+public class    ByItemCustomAdapter extends ArrayAdapter<FoodItem> {
 
     private ArrayList<FoodItem> foodItems;
     Context context;
@@ -42,6 +42,7 @@ public class ByItemCustomAdapter extends ArrayAdapter<FoodItem> {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
+
             convertView = inflater.inflate(R.layout.byitem_listrow, parent, false);
             viewHolder.sn = (TextView) convertView.findViewById(R.id.sn);
             viewHolder.foodName = (TextView) convertView.findViewById(R.id.foodName);
@@ -55,7 +56,8 @@ public class ByItemCustomAdapter extends ArrayAdapter<FoodItem> {
             viewHolder = (ViewHolder) convertView.getTag();
             //result = convertView;
         }
-        viewHolder.sn.setText(foodItems.getSn());
+        int number = position + 1;
+        viewHolder.sn.setText("" + number);
         viewHolder.foodName.setText(foodItems.getName());
         viewHolder.quantity.setText(foodItems.getQuantity());
         viewHolder.time.setText(foodItems.getTime());

@@ -1,36 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="6dip" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/sn"
+        android:id="@+id/snHeader"
         android:layout_width="30dip"
         android:layout_height="52dip"
         android:layout_alignParentLeft="true"
-        android:layout_below="@id/snHeader"
+        android:layout_alignParentTop="true"
         android:gravity="center_vertical"
         android:text="Sn"
         android:textColor="@android:color/black" />
 
     <TextView
-        android:id="@+id/foodName"
+        android:id="@+id/foodNameHeader"
         android:layout_width="200dip"
         android:layout_height="52dip"
-        android:layout_below="@id/foodNameHeader"
-        android:layout_toRightOf="@id/sn"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@id/snHeader"
         android:gravity="center_vertical"
         android:text="Food Name"
         android:textColor="@android:color/black"
         android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/foodQuantity"
+        android:id="@+id/foodQuantityHeader"
         android:layout_width="54dip"
         android:layout_height="52dip"
-        android:layout_below="@id/foodQuantityHeader"
+        android:layout_alignParentTop="true"
         android:layout_alignWithParentIfMissing="true"
-        android:layout_toRightOf="@id/foodName"
+        android:layout_toRightOf="@id/foodNameHeader"
         android:gravity="center_vertical"
         android:text="Quantity"
         android:textAlignment="center"
@@ -38,14 +38,13 @@
         android:textSize="14sp" />
 
     <TextView
-        android:id="@+id/foodTime"
+        android:id="@+id/foodTimeHeader"
         android:layout_width="wrap_content"
         android:layout_height="52dip"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/foodTimeHeader"
+        android:layout_alignParentTop="true"
         android:gravity="center_vertical"
         android:text="Time"
         android:textColor="@android:color/black" />
-
 
 </RelativeLayout>
