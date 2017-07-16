@@ -9,21 +9,38 @@ import android.os.Parcelable;
 
 public class FoodMenu implements Parcelable {
 
+    String id;
     String name;
     String price;
+    String category;
 
-    public FoodMenu(String name, String price) {
+    public FoodMenu() {
+
+    }
+    public FoodMenu(String id, String name, String price, String category) {
+        this.id = id;
         this.name = name;
         this.price = price;
+        this.category = category;
+    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() { return name; }
 
     public String getPrice() { return price; }
 
+    public String getCategory() {
+        return category;
+    }
+
     protected FoodMenu(Parcel in) {
+        id = in.readString();
         name = in.readString();
         price = in.readString();
+        category = in.readString();
     }
 
     @Override
@@ -33,8 +50,10 @@ public class FoodMenu implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(id);
         dest.writeString(name);
         dest.writeString(price);
+        dest.writeString(category);
     }
 
     @SuppressWarnings("unused")

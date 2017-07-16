@@ -18,10 +18,10 @@
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/editText" />
+            android:layout_alignStart="@+id/addNewFoodName" />
 
         <EditText
-            android:id="@+id/editText"
+            android:id="@+id/addNewFoodName"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -42,11 +42,11 @@
             android:text="Price"
             android:textColor="@android:color/black"
             android:textSize="24sp"
-            android:layout_below="@+id/editText"
-            android:layout_alignStart="@+id/editText" />
+            android:layout_below="@+id/addNewFoodName"
+            android:layout_alignStart="@+id/addNewFoodName" />
 
         <EditText
-            android:id="@+id/editText2"
+            android:id="@+id/addNewFoodPrice"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView4"
@@ -66,11 +66,11 @@
             android:textColor="@android:color/black"
             android:textSize="24sp"
             android:layout_marginTop="30dp"
-            android:layout_below="@+id/editText2"
-            android:layout_alignStart="@+id/editText2" />
+            android:layout_below="@+id/addNewFoodPrice"
+            android:layout_alignStart="@+id/addNewFoodPrice" />
 
         <EditText
-            android:id="@+id/editText5"
+            android:id="@+id/addNewFoodCat"
             android:layout_width="280dp"
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView5"
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add"
-            android:layout_below="@+id/editText5"
+            android:layout_below="@+id/addNewFoodCat"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp" />
 

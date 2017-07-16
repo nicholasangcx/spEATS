@@ -9,20 +9,14 @@ import android.os.Parcelable;
 
 public class FoodItem implements Parcelable {
 
-    String sn;
     String name;
     String quantity;
     String time;
 
     public FoodItem(String sn, String name, String quantity, String time) {
-        this.sn = sn;
         this.name = name;
         this.quantity = quantity;
         this.time = time;
-    }
-
-    public String getSn() {
-        return sn;
     }
 
     public String getName() {
@@ -38,7 +32,6 @@ public class FoodItem implements Parcelable {
     }
 
     protected FoodItem(Parcel in) {
-        sn = in.readString();
         name = in.readString();
         quantity = in.readString();
         time = in.readString();
@@ -51,7 +44,6 @@ public class FoodItem implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(sn);
         dest.writeString(name);
         dest.writeString(quantity);
         dest.writeString(time);

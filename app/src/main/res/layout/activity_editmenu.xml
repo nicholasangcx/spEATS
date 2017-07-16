@@ -53,11 +53,30 @@
         android:ems="10"
         android:inputType="numberDecimal" />
 
+    <TextView
+        android:id="@+id/editMenuCategoryHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="38dp"
+        android:text="Enter new item category:"
+        android:layout_below="@+id/editMenuPriceInput"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editMenuCategoryInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editMenuCategoryHeader"
+        android:layout_marginTop="14dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
     <Button
         android:id="@+id/editMenuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editMenuPriceInput"
+        android:layout_below="@+id/editMenuCategoryInput"
         android:layout_marginTop="50dp"
         android:layout_centerHorizontal="true"
         android:text="Confirm" />

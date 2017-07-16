@@ -24,6 +24,7 @@ public class ExistingMenuCustomAdapter extends ArrayAdapter<FoodMenu> {
     public static class ViewHolder {
         TextView name;
         TextView price;
+        TextView category;
     }
 
     public ExistingMenuCustomAdapter(ArrayList<FoodMenu> foodMenu, Context context) {
@@ -38,10 +39,11 @@ public class ExistingMenuCustomAdapter extends ArrayAdapter<FoodMenu> {
 
         if (convertView == null) {
             viewHolder = new ExistingMenuCustomAdapter.ViewHolder();
-            LayoutInflater inflator = LayoutInflater.from(getContext());
-            convertView = inflator.inflate(R.layout.existingmenu_listrow, parent, false);
+            LayoutInflater inflater = LayoutInflater.from(getContext());
+            convertView = inflater.inflate(R.layout.existingmenu_listrow, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.menuName);
             viewHolder.price = (TextView) convertView.findViewById(R.id.menuPrice);
+            viewHolder.category =(TextView) convertView.findViewById(R.id.menuCategory);
 
 
             //result = convertView;
@@ -53,6 +55,7 @@ public class ExistingMenuCustomAdapter extends ArrayAdapter<FoodMenu> {
         }
         viewHolder.name.setText(foodMenu.getName());
         viewHolder.price.setText(foodMenu.getPrice());
+        viewHolder.category.setText(foodMenu.getCategory());
         // Return the completed view to render on screen
         return convertView;
     }
