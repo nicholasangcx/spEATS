@@ -67,7 +67,7 @@ public class ExistingMenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_existingmenu, container, false);
-        databaseFoodMenu = FirebaseDatabase.getInstance().getReference().child("Putera Puteri");
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
 
         listView = (ListView) view.findViewById(R.id.list);
         foodMenuList = new ArrayList<>();
@@ -78,6 +78,7 @@ public class ExistingMenuFragment extends Fragment {
                                     long arg3) {
                 final FoodMenu item = (FoodMenu) adapter.getItemAtPosition(position);
                 final String id = item.getId();
+                final String category = item.getCategory();
                 AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
                 ad.setCancelable(false);
                 ad.setTitle("Edit");
@@ -95,7 +96,7 @@ public class ExistingMenuFragment extends Fragment {
                 ad.setPositiveButton(getActivity().getString(R.string.alert_delete), new DialogInterface.OnClickListener() {
                     //deletes this item from the food menu
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteFood(id);
+                        deleteFood(id, category);
                         dialog.dismiss();
                     }
                 });
@@ -122,8 +123,16 @@ public class ExistingMenuFragment extends Fragment {
 
                 foodMenuList.clear();
 
-                for(DataSnapshot foodMenuSnapShot: dataSnapshot.getChildren()) {
-                    FoodMenu foodMenu = foodMenuSnapShot.getChildren();
+                for(DataSnapshot foodMenuSnapShot: dataSnapshot.child("mainsMenu").getChildren()) {
+                    FoodMenu foodMenu = foodMenuSnapShot.getValue(FoodMenu.class);
+                    foodMenuList.add(foodMenu);
+                }
+                for(DataSnapshot foodMenuSnapShot: dataSnapshot.child("sidesMenu").getChildren()) {
+                    FoodMenu foodMenu = foodMenuSnapShot.getValue(FoodMenu.class);
+                    foodMenuList.add(foodMenu);
+                }
+                for(DataSnapshot foodMenuSnapShot: dataSnapshot.child("drinksMenu").getChildren()) {
+                    FoodMenu foodMenu = foodMenuSnapShot.getValue(FoodMenu.class);
                     foodMenuList.add(foodMenu);
                 }
 
@@ -138,10 +147,21 @@ public class ExistingMenuFragment extends Fragment {
         });
     }
 
-    private void deleteFood(String id) {
-        DatabaseReference drFoodMenu = FirebaseDatabase.getInstance().getReference("food_menu").child(id);
+    private void deleteFood(String id, String category) {
+        DatabaseReference drFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
 
-        drFoodMenu.removeValue();
+        if (category.equals("Mains")) {
+            DatabaseReference ref = drFoodMenu.child("mainsMenu").child(id);
+            ref.removeValue();
+        }
+        if (category.equals("Sides")) {
+            DatabaseReference ref = drFoodMenu.child("sidesMenu").child(id);
+            ref.removeValue();
+        }
+        if (category.equals("Drinks")) {
+            DatabaseReference ref = drFoodMenu.child("drinksMenu").child(id);
+            ref.removeValue();
+        }
     }
 
     private void update() {

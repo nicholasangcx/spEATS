@@ -24,7 +24,8 @@ public class EditMenuActivity extends AppCompatActivity {
 
     EditText foodName;
     EditText foodPrice;
-    EditText foodCategory;
+    EditText foodDescription;
+    EditText foodPosterPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +40,20 @@ public class EditMenuActivity extends AppCompatActivity {
 
         foodName = (EditText) findViewById(R.id.editMenuNameInput);
         foodPrice = (EditText) findViewById(R.id.editMenuPriceInput);
-        foodCategory = (EditText) findViewById(R.id.editMenuCategoryInput);
+        foodDescription = (EditText) findViewById(R.id.editMenuDescriptionInput);
+        foodPosterPath = (EditText) findViewById(R.id.editMenuPosterPathInput);
 
         Button confirm = (Button) findViewById(R.id.editMenuButton);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String id = editFood.getId();
+                String category = editFood.getCategory();
                 String name = foodName.getText().toString().trim();
-                String price = foodPrice.getText().toString().trim();
-                String category = foodCategory.getText().toString().trim();
-                if (updateMenu(id, name, price, category)) {
+                String priceString = foodPrice.getText().toString().trim();
+                String description = foodDescription.getText().toString().trim();
+                String posterPath = foodPosterPath.getText().toString().trim();
+                if (updateMenu(id, name, priceString, description, posterPath, category)) {
                     AlertDialog.Builder ad = new AlertDialog.Builder(EditMenuActivity.this);
                     ad.setCancelable(false);
                     ad.setTitle("Success!");
@@ -68,25 +72,40 @@ public class EditMenuActivity extends AppCompatActivity {
         });
     }
 
-    private boolean updateMenu (String id, String name, String price, String category) {
+    private boolean updateMenu (String id, String name, String priceString, String description, String posterPath, String category) {
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "You should enter a name", Toast.LENGTH_LONG).show();
             return false;
         }
-        else if (TextUtils.isEmpty(price)) {
+        else if (TextUtils.isEmpty(priceString)) {
             Toast.makeText(this, "You should enter a price", Toast.LENGTH_LONG).show();
             return false;
         }
-        else if (TextUtils.isEmpty(category)) {
-            Toast.makeText(this, "You should enter a category", Toast.LENGTH_LONG).show();
+        else if (TextUtils.isEmpty(description)) {
+            Toast.makeText(this, "You should enter a description", Toast.LENGTH_LONG).show();
+            return false;
+        }
+        else if (TextUtils.isEmpty(posterPath)) {
+            Toast.makeText(this, "You should enter an image url", Toast.LENGTH_LONG).show();
             return false;
         }
         else {
-            FoodMenu foodMenu = new FoodMenu(id, name, price, category);
-
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("food_menu").child(id);
-            databaseReference.setValue(foodMenu);
+            Double price = Double.valueOf(foodPrice.getText().toString());
+            FoodMenu foodMenu = new FoodMenu(id, name, price, description, posterPath, category);
+            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+            if (category.equals("Mains")) {
+                DatabaseReference ref = databaseReference.child("mainsMenu").child(id);
+                ref.setValue(foodMenu);
+            }
+            if (category.equals("Sides")) {
+                DatabaseReference ref = databaseReference.child("sidesMenu").child(id);
+                ref.setValue(foodMenu);
+            }
+            if (category.equals("Drinks")) {
+                DatabaseReference ref = databaseReference.child("drinksMenu").child(id);
+                ref.setValue(foodMenu);
+            }
 
             return true;
         }

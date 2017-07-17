@@ -54,7 +54,7 @@ public class ExistingMenuCustomAdapter extends ArrayAdapter<FoodMenu> {
             //result = convertView;
         }
         viewHolder.name.setText(foodMenu.getName());
-        viewHolder.price.setText(foodMenu.getPrice());
+        viewHolder.price.setText(foodMenu.getPrice().toString());
         viewHolder.category.setText(foodMenu.getCategory());
         // Return the completed view to render on screen
         return convertView;

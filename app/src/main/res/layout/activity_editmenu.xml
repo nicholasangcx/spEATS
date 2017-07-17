@@ -21,7 +21,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editMenuHeader"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="20dp"
         android:text="Enter new item name:" />
 
     <EditText
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editMenuNameHeader"
-        android:layout_marginTop="21dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -38,7 +38,7 @@
         android:id="@+id/editMenuPriceHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
+        android:layout_marginTop="20dp"
         android:text="Enter new item price:"
         android:layout_below="@+id/editMenuNameInput"
         android:layout_alignParentStart="true" />
@@ -49,26 +49,45 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/editMenuPriceHeader"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="numberDecimal" />
 
     <TextView
-        android:id="@+id/editMenuCategoryHeader"
+        android:id="@+id/editMenuDescriptionHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:text="Enter new item category:"
+        android:layout_marginTop="20dp"
+        android:text="Enter new item description:"
         android:layout_below="@+id/editMenuPriceInput"
         android:layout_alignParentStart="true" />
 
     <EditText
-        android:id="@+id/editMenuCategoryInput"
+        android:id="@+id/editMenuDescriptionInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/editMenuCategoryHeader"
-        android:layout_marginTop="14dp"
+        android:layout_below="@+id/editMenuDescriptionHeader"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="textShortMessage" />
+
+    <TextView
+        android:id="@+id/editMenuPosterPathHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Enter new item image url:"
+        android:layout_below="@+id/editMenuDescriptionInput"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/editMenuPosterPathInput"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editMenuPosterPathHeader"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -76,8 +95,8 @@
         android:id="@+id/editMenuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/editMenuCategoryInput"
-        android:layout_marginTop="50dp"
+        android:layout_below="@+id/editMenuPosterPathInput"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
         android:text="Confirm" />
 

@@ -11,19 +11,21 @@ public class FoodMenu implements Parcelable {
 
     String id;
     String name;
-    String price;
+    Double price;
     String description;
     String posterPath;
+    String category;
 
     public FoodMenu() {
 
     }
-    public FoodMenu(String id, String name, String price, String description, String posterPath) {
+    public FoodMenu(String id, String name, Double price, String description, String posterPath, String category) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
         this.posterPath = posterPath;
+        this.category = category;
     }
 
     public String getId() {
@@ -32,7 +34,7 @@ public class FoodMenu implements Parcelable {
 
     public String getName() { return name; }
 
-    public String getPrice() { return price; }
+    public Double getPrice() { return price; }
 
     public String getdescription() {
         return description;
@@ -42,12 +44,17 @@ public class FoodMenu implements Parcelable {
         return posterPath;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
     protected FoodMenu(Parcel in) {
         id = in.readString();
         name = in.readString();
-        price = in.readString();
+        price = in.readDouble();
         description = in.readString();
         posterPath = in.readString();
+        category = in.readString();
     }
 
     @Override
@@ -59,9 +66,10 @@ public class FoodMenu implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(name);
-        dest.writeString(price);
+        dest.writeDouble(price);
         dest.writeString(description);
         dest.writeString(posterPath);
+        dest.writeString(category);
     }
 
     @SuppressWarnings("unused")

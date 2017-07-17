@@ -13,10 +13,10 @@
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:text="Name"
             android:textColor="@android:color/black"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:layout_alignParentTop="true"
             android:layout_alignStart="@+id/addNewFoodName" />
 
@@ -27,7 +27,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView"
             android:layout_marginStart="28dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="Enter Name"
@@ -38,10 +38,10 @@
             android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="0dp"
             android:text="Price"
             android:textColor="@android:color/black"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:layout_below="@+id/addNewFoodName"
             android:layout_alignStart="@+id/addNewFoodName" />
 
@@ -51,9 +51,9 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView4"
             android:layout_below="@+id/textView4"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:ems="10"
-            android:inputType="textPersonName"
+            android:inputType="numberDecimal"
             android:hint="Enter Price"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp" />
@@ -64,8 +64,8 @@
             android:layout_height="wrap_content"
             android:text="Category"
             android:textColor="@android:color/black"
-            android:textSize="24sp"
-            android:layout_marginTop="30dp"
+            android:textSize="20sp"
+            android:layout_marginTop="0dp"
             android:layout_below="@+id/addNewFoodPrice"
             android:layout_alignStart="@+id/addNewFoodPrice" />
 
@@ -75,10 +75,58 @@
             android:layout_height="wrap_content"
             android:layout_alignStart="@+id/textView5"
             android:layout_below="@+id/textView5"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="Enter Category"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="0dp"
+            android:layout_below="@+id/addNewFoodCat"
+            android:layout_alignStart="@+id/addNewFoodCat" />
+
+        <EditText
+            android:id="@+id/addNewFoodDescription"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView6"
+            android:layout_below="@+id/textView6"
+            android:layout_marginTop="0dp"
+            android:ems="10"
+            android:inputType="textShortMessage"
+            android:hint="Enter Description"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Image Url"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:layout_marginTop="0dp"
+            android:layout_below="@+id/addNewFoodDescription"
+            android:layout_alignStart="@+id/addNewFoodDescription" />
+
+        <EditText
+            android:id="@+id/addNewFoodPosterPath"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_alignStart="@+id/textView7"
+            android:layout_below="@+id/textView7"
+            android:layout_marginTop="0dp"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Enter Image Url"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="16sp" />
 
@@ -87,9 +135,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add"
-            android:layout_below="@+id/addNewFoodCat"
+            android:layout_below="@+id/addNewFoodPosterPath"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
+            android:layout_marginTop="5dp" />
 
     </RelativeLayout>
 
