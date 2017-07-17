@@ -67,38 +67,17 @@ public class ExistingMenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_existingmenu, container, false);
-        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("food_menu");
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference().child("Putera Puteri");
 
         listView = (ListView) view.findViewById(R.id.list);
         foodMenuList = new ArrayList<>();
-        /*
-        //Replace by data from the database
-        if (savedInstanceState != null) {
-            foodMenu = savedInstanceState.getParcelableArrayList("foodMenu");
-        }
 
-        else {
-
-            foodMenu = new ArrayList<>();
-
-            foodMenu.add(new FoodMenu("1","Nasi Goreng Kampung", "$5.00","blah"));
-            foodMenu.add(new FoodMenu("2","Nasi Goreng Pataya", "$5.00","blah"));
-            foodMenu.add(new FoodMenu("3","Nasi Goreng Ayam", "$5.00","blah"));
-            foodMenu.add(new FoodMenu("4","Nasi Goreng USA", "$5.00","blah"));
-            foodMenu.add(new FoodMenu("5","Nasi Goreng Cina", "$5.00","blah"));
-            foodMenu.add(new FoodMenu("6","Nasi Lemak Ayam", "$7.00","blah"));
-            foodMenu.add(new FoodMenu("7","Cheese Fries", "$2.00","blah"));
-        }
-
-        adapter = new ExistingMenuCustomAdapter(foodMenuList, getActivity().getApplicationContext());
-
-        listView.setAdapter(adapter);
-*/
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapter, final View v, final int position,
                                     long arg3) {
                 final FoodMenu item = (FoodMenu) adapter.getItemAtPosition(position);
+                final String id = item.getId();
                 AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
                 ad.setCancelable(false);
                 ad.setTitle("Edit");
@@ -116,9 +95,8 @@ public class ExistingMenuFragment extends Fragment {
                 ad.setPositiveButton(getActivity().getString(R.string.alert_delete), new DialogInterface.OnClickListener() {
                     //deletes this item from the food menu
                     public void onClick(DialogInterface dialog, int which) {
-                        foodMenuList.remove(item);
+                        deleteFood(id);
                         dialog.dismiss();
-                        update();
                     }
                 });
                 ad.setNeutralButton(getActivity().getString(R.string.alert_cancel), new DialogInterface.OnClickListener() {
@@ -145,7 +123,7 @@ public class ExistingMenuFragment extends Fragment {
                 foodMenuList.clear();
 
                 for(DataSnapshot foodMenuSnapShot: dataSnapshot.getChildren()) {
-                    FoodMenu foodMenu = foodMenuSnapShot.getValue(FoodMenu.class);
+                    FoodMenu foodMenu = foodMenuSnapShot.getChildren();
                     foodMenuList.add(foodMenu);
                 }
 
@@ -158,6 +136,12 @@ public class ExistingMenuFragment extends Fragment {
 
             }
         });
+    }
+
+    private void deleteFood(String id) {
+        DatabaseReference drFoodMenu = FirebaseDatabase.getInstance().getReference("food_menu").child(id);
+
+        drFoodMenu.removeValue();
     }
 
     private void update() {
