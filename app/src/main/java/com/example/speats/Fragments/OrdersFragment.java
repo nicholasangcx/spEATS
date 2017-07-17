@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.speats.Models.Restaurant;
 import com.example.speats.R;
 
 public class OrdersFragment extends Fragment {

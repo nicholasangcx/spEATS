@@ -12,15 +12,25 @@ public class MenuItem implements Serializable {
     private double price;
     private String posterPath;
     private String description;
+    private String category;
 
     public MenuItem() {
     }
 
-    public MenuItem(String itemName, double price, String posterPath, String description) {
+    public MenuItem(String itemName, double price, String posterPath, String description, String category) {
         this.itemName = itemName;
         this.price = price;
         this.posterPath = posterPath;
         this.description = description;
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getItemName() {

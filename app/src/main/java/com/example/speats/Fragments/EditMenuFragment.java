@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.speats.Models.FoodMenu;
+import com.example.speats.Models.MenuItem;
 import com.example.speats.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -108,21 +108,18 @@ public class EditMenuFragment extends Fragment implements View.OnClickListener{
         else {
             Double price = Double.valueOf(foodPrice.getText().toString());
             if (category.equals("Mains")) {
-                String id = databaseFoodMenu.child("mainsMenu").push().getKey();
-                FoodMenu foodMenu = new FoodMenu(id, name, price, description, posterPath, category);
-                databaseFoodMenu.child("mainsMenu").child(id).setValue(foodMenu);
+                MenuItem foodMenu = new MenuItem(name, price, posterPath, description, category);
+                databaseFoodMenu.child("mainsMenu").child(name).setValue(foodMenu);
                 update();
             }
             else if (category.equals("Sides")) {
-                String id = databaseFoodMenu.child("sidesMenu").push().getKey();
-                FoodMenu foodMenu = new FoodMenu(id, name, price, description, posterPath, category);
-                databaseFoodMenu.child("sidesMenu").child(id).setValue(foodMenu);
+                MenuItem foodMenu = new MenuItem(name, price, posterPath, description, category);
+                databaseFoodMenu.child("sidesMenu").child(name).setValue(foodMenu);
                 update();
             }
             else if (category.equals("Drinks")) {
-                String id = databaseFoodMenu.child("drinksMenu").push().getKey();
-                FoodMenu foodMenu = new FoodMenu(id, name, price, description, posterPath, category);
-                databaseFoodMenu.child("drinksMenu").child(id).setValue(foodMenu);
+                MenuItem foodMenu = new MenuItem(name, price, posterPath, description, category);
+                databaseFoodMenu.child("drinksMenu").child(name).setValue(foodMenu);
                 update();
             }
             else {

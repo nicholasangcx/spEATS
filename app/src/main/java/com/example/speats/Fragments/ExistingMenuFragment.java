@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 import com.example.speats.Activities.EditMenuActivity;
 import com.example.speats.Adapters.ExistingMenuCustomAdapter;
-import com.example.speats.Models.FoodMenu;
+import com.example.speats.Models.MenuItem;
 import com.example.speats.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -30,7 +30,7 @@ import java.util.ArrayList;
 
 public class ExistingMenuFragment extends Fragment {
 
-    ArrayList<FoodMenu> foodMenuList;
+    ArrayList<MenuItem> foodMenuList;
     ListView listView;
     private static ExistingMenuCustomAdapter adapter;
 
@@ -76,8 +76,7 @@ public class ExistingMenuFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapter, final View v, final int position,
                                     long arg3) {
-                final FoodMenu item = (FoodMenu) adapter.getItemAtPosition(position);
-                final String id = item.getId();
+                final MenuItem item = (MenuItem) adapter.getItemAtPosition(position);
                 final String category = item.getCategory();
                 AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
                 ad.setCancelable(false);
@@ -86,7 +85,7 @@ public class ExistingMenuFragment extends Fragment {
                 ad.setNegativeButton(getActivity().getString(R.string.alert_edit), new DialogInterface.OnClickListener() {
                     //edit the item, opens up new activity to edit
                     public void onClick(DialogInterface dialog, int which) {
-                        FoodMenu value =(FoodMenu) listView.getItemAtPosition(position);
+                        MenuItem value =(MenuItem) listView.getItemAtPosition(position);
                         Intent intent = new Intent(getActivity(), EditMenuActivity.class);
                         intent.putExtra("food_itemName", value);
                         startActivity(intent);
@@ -96,7 +95,7 @@ public class ExistingMenuFragment extends Fragment {
                 ad.setPositiveButton(getActivity().getString(R.string.alert_delete), new DialogInterface.OnClickListener() {
                     //deletes this item from the food menu
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteFood(id, category);
+                        deleteFood(item.getItemName(), category);
                         dialog.dismiss();
                     }
                 });
@@ -124,15 +123,15 @@ public class ExistingMenuFragment extends Fragment {
                 foodMenuList.clear();
 
                 for(DataSnapshot foodMenuSnapShot: dataSnapshot.child("mainsMenu").getChildren()) {
-                    FoodMenu foodMenu = foodMenuSnapShot.getValue(FoodMenu.class);
+                    MenuItem foodMenu = foodMenuSnapShot.getValue(MenuItem.class);
                     foodMenuList.add(foodMenu);
                 }
                 for(DataSnapshot foodMenuSnapShot: dataSnapshot.child("sidesMenu").getChildren()) {
-                    FoodMenu foodMenu = foodMenuSnapShot.getValue(FoodMenu.class);
+                    MenuItem foodMenu = foodMenuSnapShot.getValue(MenuItem.class);
                     foodMenuList.add(foodMenu);
                 }
                 for(DataSnapshot foodMenuSnapShot: dataSnapshot.child("drinksMenu").getChildren()) {
-                    FoodMenu foodMenu = foodMenuSnapShot.getValue(FoodMenu.class);
+                    MenuItem foodMenu = foodMenuSnapShot.getValue(MenuItem.class);
                     foodMenuList.add(foodMenu);
                 }
 

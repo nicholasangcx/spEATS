@@ -11,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.speats.Models.FoodMenu;
+import com.example.speats.Models.MenuItem;
 import com.example.speats.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -32,10 +32,10 @@ public class EditMenuActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editmenu);
         Bundle recdData = getIntent().getExtras();
-        final FoodMenu editFood = (FoodMenu) recdData.get("food_itemName");
+        final MenuItem editFood = (MenuItem) recdData.get("food_itemName");
 
         TextView textView = (TextView) findViewById(R.id.editMenuHeader);
-        textView.setText(editFood.getName());
+        textView.setText(editFood.getItemName());
 
 
         foodName = (EditText) findViewById(R.id.editMenuNameInput);
@@ -47,13 +47,13 @@ public class EditMenuActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String id = editFood.getId();
                 String category = editFood.getCategory();
                 String name = foodName.getText().toString().trim();
                 String priceString = foodPrice.getText().toString().trim();
                 String description = foodDescription.getText().toString().trim();
                 String posterPath = foodPosterPath.getText().toString().trim();
-                if (updateMenu(id, name, priceString, description, posterPath, category)) {
+
+                if (updateMenu(name, priceString, description, posterPath, category)) {
                     AlertDialog.Builder ad = new AlertDialog.Builder(EditMenuActivity.this);
                     ad.setCancelable(false);
                     ad.setTitle("Success!");
@@ -72,7 +72,7 @@ public class EditMenuActivity extends AppCompatActivity {
         });
     }
 
-    private boolean updateMenu (String id, String name, String priceString, String description, String posterPath, String category) {
+    private boolean updateMenu (String name, String priceString, String description, String posterPath, String category) {
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "You should enter a name", Toast.LENGTH_LONG).show();
@@ -91,22 +91,6 @@ public class EditMenuActivity extends AppCompatActivity {
             return false;
         }
         else {
-            Double price = Double.valueOf(foodPrice.getText().toString());
-            FoodMenu foodMenu = new FoodMenu(id, name, price, description, posterPath, category);
-            DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
-            if (category.equals("Mains")) {
-                DatabaseReference ref = databaseReference.child("mainsMenu").child(id);
-                ref.setValue(foodMenu);
-            }
-            if (category.equals("Sides")) {
-                DatabaseReference ref = databaseReference.child("sidesMenu").child(id);
-                ref.setValue(foodMenu);
-            }
-            if (category.equals("Drinks")) {
-                DatabaseReference ref = databaseReference.child("drinksMenu").child(id);
-                ref.setValue(foodMenu);
-            }
-
             return true;
         }
     }

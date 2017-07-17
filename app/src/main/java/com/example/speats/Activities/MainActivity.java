@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.speats.Fragments.MenuFragment;
 import com.example.speats.Fragments.OrdersFragment;
 import com.example.speats.Fragments.UpdateFragment;
+import com.example.speats.Models.Restaurant;
 import com.example.speats.R;
 
 /**
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
+
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -73,6 +76,7 @@ public class MainActivity extends AppCompatActivity {
             }
             return null;
         }
+
 
     }
 }
