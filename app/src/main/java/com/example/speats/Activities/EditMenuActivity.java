@@ -27,6 +27,8 @@ public class EditMenuActivity extends AppCompatActivity {
     EditText foodDescription;
     EditText foodPosterPath;
 
+    DatabaseReference databaseFoodMenu;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +37,10 @@ public class EditMenuActivity extends AppCompatActivity {
         final MenuItem editFood = (MenuItem) recdData.get("food_itemName");
 
         TextView textView = (TextView) findViewById(R.id.editMenuHeader);
-        textView.setText(editFood.getItemName());
+        final String oldName = editFood.getItemName();
+        textView.setText(oldName);
 
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
 
         foodName = (EditText) findViewById(R.id.editMenuNameInput);
         foodPrice = (EditText) findViewById(R.id.editMenuPriceInput);
@@ -53,7 +57,7 @@ public class EditMenuActivity extends AppCompatActivity {
                 String description = foodDescription.getText().toString().trim();
                 String posterPath = foodPosterPath.getText().toString().trim();
 
-                if (updateMenu(name, priceString, description, posterPath, category)) {
+                if (updateMenu(oldName, name, priceString, description, posterPath, category)) {
                     AlertDialog.Builder ad = new AlertDialog.Builder(EditMenuActivity.this);
                     ad.setCancelable(false);
                     ad.setTitle("Success!");
@@ -72,7 +76,7 @@ public class EditMenuActivity extends AppCompatActivity {
         });
     }
 
-    private boolean updateMenu (String name, String priceString, String description, String posterPath, String category) {
+    private boolean updateMenu (String oldName, String name, String priceString, String description, String posterPath, String category) {
 
         if (TextUtils.isEmpty(name)) {
             Toast.makeText(this, "You should enter a name", Toast.LENGTH_LONG).show();
@@ -91,7 +95,26 @@ public class EditMenuActivity extends AppCompatActivity {
             return false;
         }
         else {
-            return true;
+            Double price = Double.valueOf(foodPrice.getText().toString());
+            if (category.equals("Mains")) {
+                MenuItem foodMenu = new MenuItem(name, price, posterPath, description, category);
+                databaseFoodMenu.child("mainsMenu").child(oldName).setValue(foodMenu);
+                return true;
+            }
+            else if (category.equals("Sides")) {
+                MenuItem foodMenu = new MenuItem(name, price, posterPath, description, category);
+                databaseFoodMenu.child("sidesMenu").child(oldName).setValue(foodMenu);
+                return true;
+            }
+            else if (category.equals("Drinks")) {
+                MenuItem foodMenu = new MenuItem(name, price, posterPath, description, category);
+                databaseFoodMenu.child("drinksMenu").child(oldName).setValue(foodMenu);
+                return true;
+            }
+            else {
+                Toast.makeText(this, "Please enter a valid category", Toast.LENGTH_LONG).show();
+                return false;
+            }
         }
     }
 }

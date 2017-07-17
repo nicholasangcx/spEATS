@@ -6,7 +6,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -18,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private Button buttonLogIn;
     private EditText EmailEt, PasswordEt;
     private FirebaseAuth auth;
     private FirebaseAuth.AuthStateListener authListener;
@@ -31,13 +29,15 @@ public class LoginActivity extends AppCompatActivity {
 
         EmailEt = (EditText) findViewById(R.id.email);
         PasswordEt = (EditText) findViewById(R.id.password);
-        buttonLogIn = (Button) findViewById(R.id.login);
 
         authListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null) {
-                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                    String uid = firebaseAuth.getCurrentUser().getUid();
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    intent.putExtra("user_uid", uid);
+                    startActivity(intent);
                 }
             }
         };

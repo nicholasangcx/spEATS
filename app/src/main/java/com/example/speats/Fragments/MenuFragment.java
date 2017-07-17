@@ -17,12 +17,12 @@ import com.example.speats.R;
 
 public class MenuFragment extends Fragment {
 
+    private String restaurantName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-
+        restaurantName = getArguments().getString("resName");
         View view = inflater.inflate(R.layout.fragment_menu, container, false);
         ViewPager mViewPager = (ViewPager) view.findViewById(R.id.container_main);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
@@ -47,11 +47,17 @@ public class MenuFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
+            Bundle bundle = new Bundle();
+            bundle.putString("resName", restaurantName);
             switch (position) {
                 case 0:
-                    return ExistingMenuFragment.newInstance(1);
+                    ExistingMenuFragment existingMenuFragment = ExistingMenuFragment.newInstance(1);
+                    existingMenuFragment.setArguments(bundle);
+                    return existingMenuFragment;
                 default:
-                    return EditMenuFragment.newInstance(2);
+                    EditMenuFragment editMenuFragment = EditMenuFragment.newInstance(2);
+                    editMenuFragment.setArguments(bundle);
+                    return editMenuFragment;
             }
 
         }

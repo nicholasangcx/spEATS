@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.speats.Models.MenuItem;
@@ -32,6 +33,7 @@ public class EditMenuFragment extends Fragment implements View.OnClickListener{
     EditText foodCat;
     EditText foodDescription;
     EditText foodPosterPath;
+    private String restaurantName;
 
     DatabaseReference databaseFoodMenu;
 
@@ -60,8 +62,12 @@ public class EditMenuFragment extends Fragment implements View.OnClickListener{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_editmenu, container, false);
-
+        restaurantName = getArguments().getString("resName");
         databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+
+        //For testing
+        TextView textView = (TextView) view.findViewById(R.id.textView);
+        textView.setText(restaurantName);
 
         foodName = (EditText) view.findViewById(R.id.addNewFoodName);
         foodPrice = (EditText) view.findViewById(R.id.addNewFoodPrice);
