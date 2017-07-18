@@ -18,6 +18,11 @@ import android.widget.Toast;
 import com.example.speats.Adapters.CustomExpandableListAdapter;
 import com.example.speats.Models.FoodOrder;
 import com.example.speats.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -28,6 +33,9 @@ public class ByOrderFragment extends Fragment {
     private static CustomExpandableListAdapter expandableListAdapter;
     ArrayList<String> expandableListTitle;
     ArrayList<ArrayList<FoodOrder>> expandableListDetail;
+
+    String restaurantName;
+    DatabaseReference databaseFoodMenu;
 
     public static ByOrderFragment newInstance(int position) {
         ByOrderFragment fragment = new ByOrderFragment();
@@ -52,8 +60,8 @@ public class ByOrderFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putSerializable("details", expandableListDetail);
-        outState.putStringArrayList("title", expandableListTitle);
+        //outState.putSerializable("details", expandableListDetail);
+        //outState.putStringArrayList("title", expandableListTitle);
         super.onSaveInstanceState(outState);
     }
 
@@ -61,9 +69,10 @@ public class ByOrderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_byorder, container, false);
-
+        restaurantName = getArguments().getString("resName");
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
         expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
-
+/*
         if (savedInstanceState != null) {
             expandableListDetail = (ArrayList<ArrayList<FoodOrder>>) savedInstanceState.getSerializable("details");
             expandableListTitle = savedInstanceState.getStringArrayList("title");
@@ -105,9 +114,8 @@ public class ByOrderFragment extends Fragment {
         expandableListDetail.add(orderno891);
         expandableListTitle.add("Order No. 891");
         }
+*/
 
-        expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
-        expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
             @Override
@@ -166,6 +174,48 @@ public class ByOrderFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        databaseFoodMenu.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                expandableListTitle.clear();
+                expandableListDetail.clear();
+/*
+For orderMaster, get children, get key
+    for orderlist (get children & get key)
+ */
+
+
+
+
+
+
+
+                for(DataSnapshot orderNoSnapShot: dataSnapshot.child("byItemMaster").getChildren()) {
+                    String orderNo = orderNoSnapShot.getValue(String.class);
+                    expandableListTitle.add(orderNo);
+                }
+
+                for(DataSnapshot orderDetailsSnapShot: dataSnapshot.child("byItemMaster").getChildren()) {
+                    String orderNo = orderNoSnapShot.getValue(String.class);
+                    expandableListTitle.add(orderNo);
+                }
+
+                expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
+                expandableListView.setAdapter(expandableListAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void update() {

@@ -68,7 +68,7 @@ public class ExistingMenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_existingmenu, container, false);
         restaurantName = getArguments().getString("resName");
-        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
 
         listView = (ListView) view.findViewById(R.id.list);
         foodMenuList = new ArrayList<>();
@@ -149,7 +149,7 @@ public class ExistingMenuFragment extends Fragment {
     }
 
     private void deleteFood(String id, String category) {
-        DatabaseReference drFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
+        DatabaseReference drFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
 
         if (category.equals("Mains")) {
             DatabaseReference ref = drFoodMenu.child("mainsMenu").child(id);

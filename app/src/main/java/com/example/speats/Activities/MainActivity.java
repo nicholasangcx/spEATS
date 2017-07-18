@@ -13,8 +13,11 @@ import com.example.speats.Fragments.OrdersFragment;
 import com.example.speats.Fragments.UpdateFragment;
 import com.example.speats.Models.User;
 import com.example.speats.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Nicholas on 3/6/2017.
@@ -24,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private String restaurantName;
+    private String[] restaurantName = new String[1];
     public String uid;
     private static User authUser;
 
@@ -35,17 +38,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Bundle recdData = getIntent().getExtras();
-        restaurantName = (String) recdData.get("resName");
+        uid = (String) recdData.get("user_id");
        // Log.d("abcdefg", restaurantName);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-/*
+
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot userSnapShot: dataSnapshot.getChildren()) {
                     User user = userSnapShot.getValue(User.class);
                     if (user.getUid().equals(uid)) {
-                        authUser = user;
+                        restaurantName[0] = user.getName();
                     }
                 }
             }
@@ -55,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-*/
+
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
 
             Bundle bundle = new Bundle();
-            bundle.putString("resName", restaurantName);
+            bundle.putString("resName", restaurantName[0]);
             switch (position) {
                 case 0:
                     OrdersFragment ordersFragment = new OrdersFragment();

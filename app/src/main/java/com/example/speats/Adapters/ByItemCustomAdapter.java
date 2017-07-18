@@ -58,7 +58,7 @@ public class ByItemCustomAdapter extends ArrayAdapter<ItemOrdered> {
         }
         int number = position + 1;
         viewHolder.sn.setText("" + number);
-        viewHolder.foodName.setText(foodItems.getMenuItem().getItemName());
+        viewHolder.foodName.setText("nicholas");
         viewHolder.quantity.setText(foodItems.getQty());
         viewHolder.time.setText(String.valueOf(foodItems.getEta()));
         // Return the completed view to render on screen
