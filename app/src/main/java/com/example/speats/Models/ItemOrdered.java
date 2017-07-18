@@ -9,15 +9,23 @@ import java.io.Serializable;
 public class ItemOrdered implements Serializable{
 
     int qty;
+    double eta;
     MenuItem menuItem;
-    Double eta;
 
     public ItemOrdered() {
     }
 
-    public ItemOrdered(int qty, MenuItem menuItem, Double eta) {
+    public ItemOrdered(int qty, double eta, MenuItem menuItem) {
         this.qty = qty;
+        this.eta = eta;
         this.menuItem = menuItem;
+    }
+
+    public double getEta() {
+        return eta;
+    }
+
+    public void setEta(double eta) {
         this.eta = eta;
     }
 
@@ -27,10 +35,6 @@ public class ItemOrdered implements Serializable{
 
     public void setQty(int qty) {
         this.qty = qty;
-    }
-
-    public Double getEta() {
-        return eta;
     }
 
     public MenuItem getMenuItem() {

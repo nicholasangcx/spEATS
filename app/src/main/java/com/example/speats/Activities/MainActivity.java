@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.example.speats.Fragments.MenuFragment;
 import com.example.speats.Fragments.OrdersFragment;
 import com.example.speats.Fragments.UpdateFragment;
+import com.example.speats.Models.Restaurant;
 import com.example.speats.Models.User;
 import com.example.speats.R;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private String restaurantName;
     public String uid;
     private static User authUser;
+    private Restaurant restaurant;
 
     DatabaseReference databaseReference;
 
@@ -34,8 +36,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Bundle recdData = getIntent().getExtras();
-        restaurantName = (String) recdData.get("resName");
+
+        Bundle extras = getIntent().getExtras();
+        restaurant = (Restaurant) extras.getSerializable("RESTAURANT");
+        restaurantName = restaurant.getName();
        // Log.d("abcdefg", restaurantName);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 /*
