@@ -9,17 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.speats.Models.Restaurant;
 import com.example.speats.R;
 
 public class OrdersFragment extends Fragment {
 
+    private String restaurantName;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-
+        restaurantName = getArguments().getString("resName");
         View view = inflater.inflate(R.layout.fragment_orders, container, false);
         ViewPager mViewPager = (ViewPager) view.findViewById(R.id.container_main);
         SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getChildFragmentManager());
@@ -44,11 +44,17 @@ public class OrdersFragment extends Fragment {
 
         @Override
         public Fragment getItem(int position) {
+            Bundle bundle = new Bundle();
+            bundle.putString("resName", restaurantName);
             switch (position) {
                 case 0:
-                    return ByOrderFragment.newInstance(1);
+                    ByOrderFragment byOrderFragment = ByOrderFragment.newInstance(1);
+                    byOrderFragment.setArguments(bundle);
+                    return byOrderFragment;
                 default:
-                    return ByItemFragment.newInstance(2);
+                    ByItemFragment byItemFragment = ByItemFragment.newInstance(2);
+                    byItemFragment.setArguments(bundle);
+                    return byItemFragment;
             }
 
         }

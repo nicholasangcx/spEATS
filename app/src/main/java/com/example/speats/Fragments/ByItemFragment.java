@@ -11,8 +11,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.speats.Adapters.ByItemCustomAdapter;
-import com.example.speats.Models.FoodItem;
+import com.example.speats.Models.ItemOrdered;
 import com.example.speats.R;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -22,9 +27,11 @@ import java.util.ArrayList;
  */
 public class ByItemFragment extends Fragment {
 
-    ArrayList<FoodItem> foodItems;
+    ArrayList<ItemOrdered> foodItems;
     ListView listView;
     private static ByItemCustomAdapter adapter;
+    String restaurantName;
+    DatabaseReference databaseFoodMenu;
 
     public static ByItemFragment newInstance(int position) {
         ByItemFragment fragment = new ByItemFragment();
@@ -49,7 +56,6 @@ public class ByItemFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList("foodItem", foodItems);
         super.onSaveInstanceState(outState);
     }
 
@@ -57,11 +63,16 @@ public class ByItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_byitem, container, false);
-
-        listView=(ListView) view.findViewById(R.id.list);
+        restaurantName = getArguments().getString("resName");
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+        //Set the view
+        listView = (ListView) view.findViewById(R.id.list);
+        //Set the header
         ViewGroup header = (ViewGroup)inflater.inflate(R.layout.byitem_header, listView, false);
         listView.addHeaderView(header, null, false);
 
+        foodItems = new ArrayList<>();
+        /*
         if (savedInstanceState != null) {
             foodItems = savedInstanceState.getParcelableArrayList("foodItem");
         }
@@ -76,7 +87,7 @@ public class ByItemFragment extends Fragment {
             foodItems.add(new FoodItem("5", "Iced Milo", "2", "17:00"));
             foodItems.add(new FoodItem("6", "Iced Lemon Tea", "1", "17:15"));
         }
-
+        */
         adapter= new ByItemCustomAdapter(foodItems,getActivity().getApplicationContext());
 
         listView.setAdapter(adapter);
@@ -86,7 +97,7 @@ public class ByItemFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                     long arg3) {
-                final FoodItem item = (FoodItem) adapter.getItemAtPosition(position);
+                final ItemOrdered item = (ItemOrdered) adapter.getItemAtPosition(position);
                 AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
                 ad.setCancelable(false);
                 ad.setTitle("Remove");
@@ -94,9 +105,8 @@ public class ByItemFragment extends Fragment {
                 ad.setPositiveButton(getActivity().getString(R.string.alert_okay), new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        foodItems.remove(item);
+                        deleteItem(item.getMenuItem().getItemName()+String.valueOf(item.getEta()));
                         dialog.dismiss();
-                        update();
                     }
                 });
                 ad.setNegativeButton(getActivity().getString(R.string.alert_cancel), new DialogInterface.OnClickListener() {
@@ -112,8 +122,36 @@ public class ByItemFragment extends Fragment {
         return view;
     }
 
-    private void update() {
-        adapter.updateByItemList();
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        databaseFoodMenu.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                foodItems.clear();
+
+                for(DataSnapshot foodMenuSnapShot: dataSnapshot.child("byItemMaster").getChildren()) {
+                    ItemOrdered foodMenu = foodMenuSnapShot.getValue(ItemOrdered.class);
+                    foodItems.add(foodMenu);
+                }
+
+                adapter = new ByItemCustomAdapter(foodItems, getActivity().getApplicationContext());
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
     }
 
+    private void deleteItem(String itemOrdered) {
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+        DatabaseReference ref = databaseFoodMenu.child("byItemMaster").child(itemOrdered);
+        ref.removeValue();
+    }
 }

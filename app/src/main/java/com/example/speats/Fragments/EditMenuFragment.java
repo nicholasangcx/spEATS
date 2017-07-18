@@ -33,7 +33,7 @@ public class EditMenuFragment extends Fragment implements View.OnClickListener{
     EditText foodCat;
     EditText foodDescription;
     EditText foodPosterPath;
-    private String restaurantName;
+    String restaurantName;
 
     DatabaseReference databaseFoodMenu;
 
@@ -63,7 +63,7 @@ public class EditMenuFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_editmenu, container, false);
         restaurantName = getArguments().getString("resName");
-        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
 
         //For testing
         TextView textView = (TextView) view.findViewById(R.id.textView);

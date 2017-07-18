@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.speats.Models.FoodItem;
+import com.example.speats.Models.ItemOrdered;
 import com.example.speats.R;
 
 import java.util.ArrayList;
@@ -16,9 +16,9 @@ import java.util.ArrayList;
  * Created by Nicholas on 13/6/2017.
  */
 
-public class    ByItemCustomAdapter extends ArrayAdapter<FoodItem> {
+public class ByItemCustomAdapter extends ArrayAdapter<ItemOrdered> {
 
-    private ArrayList<FoodItem> foodItems;
+    private ArrayList<ItemOrdered> foodItems;
     Context context;
 
     private static class ViewHolder {
@@ -28,7 +28,7 @@ public class    ByItemCustomAdapter extends ArrayAdapter<FoodItem> {
         TextView time;
     }
 
-    public ByItemCustomAdapter(ArrayList<FoodItem> foodItems, Context context) {
+    public ByItemCustomAdapter(ArrayList<ItemOrdered> foodItems, Context context) {
         super(context, R.layout.byitem_listrow, foodItems);
         this.foodItems = foodItems;
         this.context = context;
@@ -36,7 +36,7 @@ public class    ByItemCustomAdapter extends ArrayAdapter<FoodItem> {
 
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        FoodItem foodItems = getItem(position);
+        ItemOrdered foodItems = getItem(position);
         ViewHolder viewHolder;
 
         if (convertView == null) {
@@ -58,9 +58,9 @@ public class    ByItemCustomAdapter extends ArrayAdapter<FoodItem> {
         }
         int number = position + 1;
         viewHolder.sn.setText("" + number);
-        viewHolder.foodName.setText(foodItems.getName());
-        viewHolder.quantity.setText(foodItems.getQuantity());
-        viewHolder.time.setText(foodItems.getTime());
+        viewHolder.foodName.setText(foodItems.getMenuItem().getItemName());
+        viewHolder.quantity.setText(foodItems.getQty());
+        viewHolder.time.setText(String.valueOf(foodItems.getEta()));
         // Return the completed view to render on screen
         return convertView;
     }

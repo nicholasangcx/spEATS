@@ -33,6 +33,7 @@ public class ExistingMenuFragment extends Fragment {
     ArrayList<MenuItem> foodMenuList;
     ListView listView;
     private static ExistingMenuCustomAdapter adapter;
+    String restaurantName;
 
     DatabaseReference databaseFoodMenu;
 
@@ -59,7 +60,6 @@ public class ExistingMenuFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-       // outState.putParcelableArrayList("foodMenu", foodMenu);
         super.onSaveInstanceState(outState);
     }
 
@@ -67,7 +67,8 @@ public class ExistingMenuFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_existingmenu, container, false);
-        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+        restaurantName = getArguments().getString("resName");
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
 
         listView = (ListView) view.findViewById(R.id.list);
         foodMenuList = new ArrayList<>();
@@ -85,7 +86,7 @@ public class ExistingMenuFragment extends Fragment {
                 ad.setNegativeButton(getActivity().getString(R.string.alert_edit), new DialogInterface.OnClickListener() {
                     //edit the item, opens up new activity to edit
                     public void onClick(DialogInterface dialog, int which) {
-                        MenuItem value =(MenuItem) listView.getItemAtPosition(position);
+                        MenuItem value = (MenuItem) listView.getItemAtPosition(position);
                         Intent intent = new Intent(getActivity(), EditMenuActivity.class);
                         intent.putExtra("food_itemName", value);
                         startActivity(intent);
@@ -122,15 +123,15 @@ public class ExistingMenuFragment extends Fragment {
 
                 foodMenuList.clear();
 
-                for(DataSnapshot foodMenuSnapShot: dataSnapshot.child("mainsMenu").getChildren()) {
+                for (DataSnapshot foodMenuSnapShot : dataSnapshot.child("mainsMenu").getChildren()) {
                     MenuItem foodMenu = foodMenuSnapShot.getValue(MenuItem.class);
                     foodMenuList.add(foodMenu);
                 }
-                for(DataSnapshot foodMenuSnapShot: dataSnapshot.child("sidesMenu").getChildren()) {
+                for (DataSnapshot foodMenuSnapShot : dataSnapshot.child("sidesMenu").getChildren()) {
                     MenuItem foodMenu = foodMenuSnapShot.getValue(MenuItem.class);
                     foodMenuList.add(foodMenu);
                 }
-                for(DataSnapshot foodMenuSnapShot: dataSnapshot.child("drinksMenu").getChildren()) {
+                for (DataSnapshot foodMenuSnapShot : dataSnapshot.child("drinksMenu").getChildren()) {
                     MenuItem foodMenu = foodMenuSnapShot.getValue(MenuItem.class);
                     foodMenuList.add(foodMenu);
                 }
@@ -148,7 +149,7 @@ public class ExistingMenuFragment extends Fragment {
     }
 
     private void deleteFood(String id, String category) {
-        DatabaseReference drFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+        DatabaseReference drFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
 
         if (category.equals("Mains")) {
             DatabaseReference ref = drFoodMenu.child("mainsMenu").child(id);
@@ -162,10 +163,6 @@ public class ExistingMenuFragment extends Fragment {
             DatabaseReference ref = drFoodMenu.child("drinksMenu").child(id);
             ref.removeValue();
         }
-    }
-
-    private void update() {
-        adapter.updateExistingMenuList();
     }
 }
 

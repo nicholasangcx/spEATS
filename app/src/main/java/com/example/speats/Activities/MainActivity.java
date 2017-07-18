@@ -13,11 +13,8 @@ import com.example.speats.Fragments.OrdersFragment;
 import com.example.speats.Fragments.UpdateFragment;
 import com.example.speats.Models.User;
 import com.example.speats.R;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Nicholas on 3/6/2017.
@@ -29,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private String restaurantName;
     public String uid;
+    private static User authUser;
 
     DatabaseReference databaseReference;
 
@@ -37,10 +35,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Bundle recdData = getIntent().getExtras();
-        uid = (String) recdData.get("user_uid");
+        restaurantName = (String) recdData.get("resName");
        // Log.d("abcdefg", restaurantName);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
+/*
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot userSnapShot: dataSnapshot.getChildren()) {
+                    User user = userSnapShot.getValue(User.class);
+                    if (user.getUid().equals(uid)) {
+                        authUser = user;
+                    }
+                }
+            }
 
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+*/
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -52,22 +67,6 @@ public class MainActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot userSnapShot: dataSnapshot.getChildren()) {
-                    User user = userSnapShot.getValue(User.class);
-                    if (user.getUid().equals(uid)) {
-                        restaurantName = user.getName();
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
     }
 
     public class SectionsPagerAdapter extends FragmentStatePagerAdapter {

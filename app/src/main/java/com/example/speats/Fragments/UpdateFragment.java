@@ -21,6 +21,7 @@ public class UpdateFragment extends Fragment implements View.OnClickListener {
 
     private String mParam1;
     private String mParam2;
+    private String restaurantName;
 
     int smallNumber = 5;
     int mediumNumber = 5;
@@ -52,7 +53,7 @@ public class UpdateFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the byitem_header for this fragment
         View v = inflater.inflate(R.layout.fragment_update, container, false);
-
+        restaurantName = getArguments().getString("resName");
 
         Button a = (Button) v.findViewById(R.id.increaseSmall);
         a.setOnClickListener(this);

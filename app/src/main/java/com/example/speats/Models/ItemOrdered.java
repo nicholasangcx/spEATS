@@ -10,13 +10,15 @@ public class ItemOrdered implements Serializable{
 
     int qty;
     MenuItem menuItem;
+    Double eta;
 
     public ItemOrdered() {
     }
 
-    public ItemOrdered(int qty, MenuItem menuItem) {
+    public ItemOrdered(int qty, MenuItem menuItem, Double eta) {
         this.qty = qty;
         this.menuItem = menuItem;
+        this.eta = eta;
     }
 
     public int getQty() {
@@ -25,6 +27,10 @@ public class ItemOrdered implements Serializable{
 
     public void setQty(int qty) {
         this.qty = qty;
+    }
+
+    public Double getEta() {
+        return eta;
     }
 
     public MenuItem getMenuItem() {
