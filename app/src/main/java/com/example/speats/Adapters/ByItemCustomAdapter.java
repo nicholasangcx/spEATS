@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.speats.Models.ByItem;
 import com.example.speats.Models.ItemOrdered;
 import com.example.speats.R;
 
@@ -16,9 +17,9 @@ import java.util.ArrayList;
  * Created by Nicholas on 13/6/2017.
  */
 
-public class ByItemCustomAdapter extends ArrayAdapter<ItemOrdered> {
+public class ByItemCustomAdapter extends ArrayAdapter<ByItem> {
 
-    private ArrayList<ItemOrdered> foodItems;
+    private ArrayList<ByItem> foodItems;
     Context context;
 
     private static class ViewHolder {
@@ -28,7 +29,7 @@ public class ByItemCustomAdapter extends ArrayAdapter<ItemOrdered> {
         TextView time;
     }
 
-    public ByItemCustomAdapter(ArrayList<ItemOrdered> foodItems, Context context) {
+    public ByItemCustomAdapter(ArrayList<ByItem> foodItems, Context context) {
         super(context, R.layout.byitem_listrow, foodItems);
         this.foodItems = foodItems;
         this.context = context;
@@ -36,7 +37,7 @@ public class ByItemCustomAdapter extends ArrayAdapter<ItemOrdered> {
 
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        ItemOrdered foodItems = getItem(position);
+        ByItem foodItems = getItem(position);
         ViewHolder viewHolder;
 
         if (convertView == null) {
@@ -58,8 +59,8 @@ public class ByItemCustomAdapter extends ArrayAdapter<ItemOrdered> {
         }
         int number = position + 1;
         viewHolder.sn.setText("" + number);
-        viewHolder.foodName.setText("nicholas");
-        viewHolder.quantity.setText(foodItems.getQty());
+        viewHolder.foodName.setText(foodItems.getMenuItem().getItemName());
+        viewHolder.quantity.setText(String.valueOf(foodItems.getQty()));
         viewHolder.time.setText(String.valueOf(foodItems.getEta()));
         // Return the completed view to render on screen
         return convertView;

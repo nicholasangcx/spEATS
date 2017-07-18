@@ -16,14 +16,16 @@ public class Restaurant implements Serializable{
     private HashMap<String, MenuItem> DrinksMenu;
     private String posterPath;
     private HashMap<String, Order> orderMaster;
+    private HashMap<String, ByItem> byItemMaster;
     private Double numSeats;
     private Double occupiedSeats;
+    private int orderNumSoFar;
 
     public Restaurant(){
 
     }
 
-    public Restaurant(String name, String overview, HashMap<String, MenuItem> mainsMenu, HashMap<String, MenuItem> sidesMenu, HashMap<String, MenuItem> drinksMenu, String posterPath, HashMap<String, Order> orderMaster, Double numSeats, Double occupiedSeats) {
+    public Restaurant(String name, String overview, HashMap<String, MenuItem> mainsMenu, HashMap<String, MenuItem> sidesMenu, HashMap<String, MenuItem> drinksMenu, String posterPath, HashMap<String, Order> orderMaster, HashMap<String, ByItem> byItemMaster, Double numSeats, Double occupiedSeats, int orderNumSoFar) {
         this.name = name;
         this.overview = overview;
         MainsMenu = mainsMenu;
@@ -31,8 +33,34 @@ public class Restaurant implements Serializable{
         DrinksMenu = drinksMenu;
         this.posterPath = posterPath;
         this.orderMaster = orderMaster;
+        this.byItemMaster = byItemMaster;
         this.numSeats = numSeats;
         this.occupiedSeats = occupiedSeats;
+        this.orderNumSoFar = orderNumSoFar;
+    }
+
+    public int getOrderNumSoFar() {
+        return orderNumSoFar;
+    }
+
+    public void setOrderNumSoFar(int orderNumSoFar) {
+        this.orderNumSoFar = orderNumSoFar;
+    }
+
+    public void incOrderNumSoFar() {
+        if (orderNumSoFar < 9999) {
+            orderNumSoFar++;
+        } else {
+            orderNumSoFar = 1;
+        }
+    }
+
+    public HashMap<String, ByItem> getByItemMaster() {
+        return byItemMaster;
+    }
+
+    public void setByItemMaster(HashMap<String, ByItem> byItemMaster) {
+        this.byItemMaster = byItemMaster;
     }
 
     public Double getNumSeats() {

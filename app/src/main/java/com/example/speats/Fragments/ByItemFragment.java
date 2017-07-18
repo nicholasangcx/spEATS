@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.speats.Adapters.ByItemCustomAdapter;
+import com.example.speats.Models.ByItem;
 import com.example.speats.Models.ItemOrdered;
 import com.example.speats.R;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +29,7 @@ import java.util.ArrayList;
  */
 public class ByItemFragment extends Fragment {
 
-    ArrayList<ItemOrdered> foodItems;
+    ArrayList<ByItem> foodItems = new ArrayList<ByItem>();
     ListView listView;
     private static ByItemCustomAdapter adapter;
     String restaurantName;
@@ -38,7 +40,6 @@ public class ByItemFragment extends Fragment {
         Bundle args = new Bundle();
         args.putInt("position", position);
         fragment.setArguments(args);
-
         return fragment;
     }
 
@@ -59,12 +60,13 @@ public class ByItemFragment extends Fragment {
         super.onSaveInstanceState(outState);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_byitem, container, false);
         restaurantName = getArguments().getString("resName");
-        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName).child("byItemMaster");
         //Set the view
         listView = (ListView) view.findViewById(R.id.list);
         //Set the header
@@ -110,16 +112,40 @@ public class ByItemFragment extends Fragment {
         databaseFoodMenu.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-                foodItems.clear();
-
-                for(DataSnapshot foodMenuSnapShot: dataSnapshot.child("byItemMaster").getChildren()) {
-                    ItemOrdered foodMenu = foodMenuSnapShot.getValue(ItemOrdered.class);
+                for(DataSnapshot foodMenuSnapShot: dataSnapshot.getChildren()) {
+                    ByItem foodMenu = foodMenuSnapShot.getValue(ByItem.class);
                     foodItems.add(foodMenu);
                 }
 
                 adapter = new ByItemCustomAdapter(foodItems, getActivity().getApplicationContext());
                 listView.setAdapter(adapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+                {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View v, int position,
+                                            long arg3) {
+                        final ByItem item = (ByItem) adapter.getItemAtPosition(position);
+                        AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
+                        ad.setCancelable(false);
+                        ad.setTitle("Remove");
+                        ad.setMessage("Are you sure you want to remove item?");
+                        ad.setPositiveButton(getActivity().getString(R.string.alert_okay), new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                deleteItem(item.getMenuItem().getItemName()+String.valueOf(item.getEta()));
+                                dialog.dismiss();
+                            }
+                        });
+                        ad.setNegativeButton(getActivity().getString(R.string.alert_cancel), new DialogInterface.OnClickListener() {
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        ad.show();
+                    }
+                });
             }
 
             @Override
