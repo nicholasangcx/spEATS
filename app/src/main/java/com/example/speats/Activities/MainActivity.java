@@ -28,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private String restaurantName;
-    private String uid;
+    public String uid;
 
     DatabaseReference databaseReference;
 

@@ -8,14 +8,16 @@ public class User {
 
     private String name;
     private String uid;
+    private String email;
 
     public User() {
 
     }
 
-    public User(String name, String uid) {
+    public User(String name, String uid, String email) {
         this.name = name;
         this.uid = uid;
+        this.email = email;
     }
 
     public String getName() {
@@ -24,5 +26,9 @@ public class User {
 
     public String getUid() {
         return uid;
+    }
+
+    public String getEmail() {
+        return email;
     }
 }
