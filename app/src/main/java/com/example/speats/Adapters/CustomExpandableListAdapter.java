@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
-import com.example.speats.Models.FoodOrder;
+import com.example.speats.Models.ByItem;
 import com.example.speats.R;
 
 import java.util.ArrayList;
@@ -21,17 +21,16 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<String> expandableListTitle;
-    private ArrayList<ArrayList<FoodOrder>>  expandableListDetail;
+    private ArrayList<ArrayList<ByItem>> expandableListDetail;
 
     private static class ViewHolder {
-        TextView sn;
         TextView name;
         TextView quantity;
         TextView price;
     }
 
     public CustomExpandableListAdapter(Context context, ArrayList<String> expandableListTitle,
-                                      ArrayList<ArrayList<FoodOrder>> expandableListDetail) {
+                                       ArrayList<ArrayList<ByItem>> expandableListDetail) {
         this.context = context;
         this.expandableListDetail = expandableListDetail;
         this.expandableListTitle = expandableListTitle;
@@ -50,22 +49,20 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final FoodOrder foodOrder = (FoodOrder) getChild(listPosition, expandedListPosition);
+        final ByItem ByItem = (ByItem) getChild(listPosition, expandedListPosition);
         ViewHolder viewHolder;
 
         viewHolder = new ViewHolder();
         LayoutInflater layoutInflater = (LayoutInflater) this.context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         convertView = layoutInflater.inflate(R.layout.byorder_listitem, parent, false);
-        viewHolder.sn = (TextView) convertView.findViewById(R.id.byorder_sn);
         viewHolder.name = (TextView) convertView.findViewById(R.id.byorder_name);
         viewHolder.quantity = (TextView) convertView.findViewById(R.id.byorder_quantity);
         viewHolder.price = (TextView) convertView.findViewById(R.id.byorder_price);
 
-        viewHolder.sn.setText(foodOrder.getSn());
-        viewHolder.name.setText(foodOrder.getName());
-        viewHolder.quantity.setText(foodOrder.getQuantity());
-        viewHolder.price.setText(foodOrder.getPrice());
+        viewHolder.name.setText(ByItem.getMenuItem().getItemName());
+        viewHolder.quantity.setText(String.valueOf(ByItem.getQty()));
+        viewHolder.price.setText("$"+String.valueOf(ByItem.getMenuItem().getPrice()));
         return convertView;
     }
 
@@ -113,10 +110,6 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public boolean isChildSelectable(int listPosition, int expandedListPosition) {
         return true;
-    }
-
-    public void updateByOrderList() {
-        notifyDataSetChanged();
     }
 
 }

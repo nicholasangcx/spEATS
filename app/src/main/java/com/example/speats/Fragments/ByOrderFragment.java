@@ -16,7 +16,7 @@ import android.widget.ExpandableListView;
 import android.widget.Toast;
 
 import com.example.speats.Adapters.CustomExpandableListAdapter;
-import com.example.speats.Models.FoodOrder;
+import com.example.speats.Models.ByItem;
 import com.example.speats.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +32,7 @@ public class ByOrderFragment extends Fragment {
     ExpandableListView expandableListView;
     private static CustomExpandableListAdapter expandableListAdapter;
     ArrayList<String> expandableListTitle;
-    ArrayList<ArrayList<FoodOrder>> expandableListDetail;
+    ArrayList<ArrayList<ByItem>> expandableListDetail;
 
     String restaurantName;
     DatabaseReference databaseFoodMenu;
@@ -70,51 +70,11 @@ public class ByOrderFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_byorder, container, false);
         restaurantName = getArguments().getString("resName");
-        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
         expandableListView = (ExpandableListView) view.findViewById(R.id.expandableListView);
-/*
-        if (savedInstanceState != null) {
-            expandableListDetail = (ArrayList<ArrayList<FoodOrder>>) savedInstanceState.getSerializable("details");
-            expandableListTitle = savedInstanceState.getStringArrayList("title");
-        }
 
-        else {
-        expandableListDetail = new ArrayList<>();
         expandableListTitle = new ArrayList<>();
-
-        ArrayList<FoodOrder> orderno889 = new ArrayList<>();
-        FoodOrder order1 = new FoodOrder("1", "Nasi Lemak", "x1", "$5.00");
-        FoodOrder order2 = new FoodOrder("2", "Fries", "x1", "$3.00");
-        FoodOrder order3 = new FoodOrder("3", "Iced Milo", "x1", "$2.00");
-        orderno889.add(order1);
-        orderno889.add(order2);
-        orderno889.add(order3);
-        expandableListDetail.add(orderno889);
-        expandableListTitle.add("Order No. 889");
-
-        ArrayList<FoodOrder> orderno890 = new ArrayList<>();
-        FoodOrder order4 = new FoodOrder("1", "Chicken Pataya", "x1", "$5.00");
-        FoodOrder order5 = new FoodOrder("2", "Prata", "x1", "$1.00");
-        FoodOrder order6 = new FoodOrder("3", "Fries", "x1", "$3.00");
-        FoodOrder order7 = new FoodOrder("4", "Iced Milo", "x1", "$2.00");
-        orderno890.add(order4);
-        orderno890.add(order5);
-        orderno890.add(order6);
-        orderno890.add(order7);
-        expandableListDetail.add(orderno890);
-        expandableListTitle.add("Order No. 890");
-
-        ArrayList<FoodOrder> orderno891 = new ArrayList<>();
-        FoodOrder order8 = new FoodOrder("1", "Prata", "x1", "$1.00");
-        FoodOrder order9 = new FoodOrder("2", "Fries", "x1", "$3.00");
-        FoodOrder order10 = new FoodOrder("3", "Iced Lemon Tea", "x1", "$2.00");
-        orderno891.add(order8);
-        orderno891.add(order9);
-        orderno891.add(order10);
-        expandableListDetail.add(orderno891);
-        expandableListTitle.add("Order No. 891");
-        }
-*/
+        expandableListDetail = new ArrayList<>();
 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
 
@@ -140,11 +100,12 @@ public class ByOrderFragment extends Fragment {
         expandableListView.setOnItemLongClickListener(new ExpandableListView.OnItemLongClickListener() {
 
             @Override
-            public boolean onItemLongClick( AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
                 long packedPosition = expandableListView.getExpandableListPosition(position);
                 int itemType = ExpandableListView.getPackedPositionType(packedPosition);
-                final int groupPosition = ExpandableListView.getPackedPositionGroup(packedPosition);
+                int groupPosition = ExpandableListView.getPackedPositionGroup(packedPosition);
+                final String orderNo = expandableListTitle.get(groupPosition);
 
         /*  if group item clicked */
                 if (itemType == ExpandableListView.PACKED_POSITION_TYPE_GROUP) {
@@ -155,10 +116,9 @@ public class ByOrderFragment extends Fragment {
                     ad.setPositiveButton(getActivity().getString(R.string.alert_delete), new DialogInterface.OnClickListener() {
 
                         public void onClick(DialogInterface dialog, int which) {
-                            expandableListTitle.remove(groupPosition);
-                            expandableListDetail.remove(groupPosition);
+                            deleteOrder(orderNo);
                             dialog.dismiss();
-                            update();
+
                         }
                     });
                     ad.setNegativeButton(getActivity().getString(R.string.alert_cancel), new DialogInterface.OnClickListener() {
@@ -186,25 +146,18 @@ public class ByOrderFragment extends Fragment {
 
                 expandableListTitle.clear();
                 expandableListDetail.clear();
-/*
-For orderMaster, get children, get key
-    for orderlist (get children & get key)
- */
 
-
-
-
-
-
-
-                for(DataSnapshot orderNoSnapShot: dataSnapshot.child("byItemMaster").getChildren()) {
-                    String orderNo = orderNoSnapShot.getValue(String.class);
+                for (DataSnapshot orderNoSnapShot : dataSnapshot.child("orderMaster").getChildren()) {
+                    String orderNo = orderNoSnapShot.getKey();
                     expandableListTitle.add(orderNo);
-                }
 
-                for(DataSnapshot orderDetailsSnapShot: dataSnapshot.child("byItemMaster").getChildren()) {
-                    String orderNo = orderNoSnapShot.getValue(String.class);
-                    expandableListTitle.add(orderNo);
+                    ArrayList<ByItem> foodOrderList = new ArrayList<>();
+                    for (DataSnapshot orderListSnapShot : orderNoSnapShot.child("orderList").getChildren()) {
+                        //String itemName = orderListSnapShot.getKey();
+                        ByItem byOrder = orderListSnapShot.getValue(ByItem.class);
+                        foodOrderList.add(byOrder);
+                    }
+                    expandableListDetail.add(foodOrderList);
                 }
 
                 expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
@@ -218,7 +171,9 @@ For orderMaster, get children, get key
         });
     }
 
-    private void update() {
-        expandableListAdapter.updateByOrderList();
+    private void deleteOrder(String orderNo) {
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
+        DatabaseReference ref = databaseFoodMenu.child("orderMaster").child(orderNo);
+        ref.removeValue();
     }
 }

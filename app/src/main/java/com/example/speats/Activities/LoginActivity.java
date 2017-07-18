@@ -32,8 +32,8 @@ public class LoginActivity extends AppCompatActivity {
     private ArrayList<User> users;
     private ArrayList<Restaurant> restaurants;
 
-    DatabaseReference databaseReference;
-    DatabaseReference databaseReference2;
+    DatabaseReference userReference;
+    DatabaseReference restaurantReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +45,11 @@ public class LoginActivity extends AppCompatActivity {
         PasswordEt = (EditText) findViewById(R.id.password);
         button = (Button) findViewById(R.id.login);
 
-        users = new ArrayList<User>();
-        restaurants = new ArrayList<Restaurant>();
+        users = new ArrayList<>();
+        restaurants = new ArrayList<>();
 
-        databaseReference = FirebaseDatabase.getInstance().getReference("Users");
-        databaseReference2 = FirebaseDatabase.getInstance().getReference("Restaurants");
+        userReference = FirebaseDatabase.getInstance().getReference("Users");
+        restaurantReference = FirebaseDatabase.getInstance().getReference("Restaurants");
 
 
 
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
             public void onClick(View v) {
                 name = nameEt.getText().toString().trim();
-                password= PasswordEt.getText().toString().trim();
+                password = PasswordEt.getText().toString().trim();
 
                 boolean stat1 = false;
                 boolean stat2 = false;
@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         //reading from database
-        databaseReference.addValueEventListener(new ValueEventListener() {
+        userReference.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -122,7 +122,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        databaseReference2.addValueEventListener(new ValueEventListener() {
+        restaurantReference.addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

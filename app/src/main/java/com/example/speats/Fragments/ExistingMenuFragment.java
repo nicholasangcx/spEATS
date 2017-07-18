@@ -68,7 +68,7 @@ public class ExistingMenuFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_existingmenu, container, false);
         restaurantName = getArguments().getString("resName");
-        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
 
         listView = (ListView) view.findViewById(R.id.list);
         foodMenuList = new ArrayList<>();

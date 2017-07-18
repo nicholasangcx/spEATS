@@ -171,7 +171,6 @@
             android:layout_above="@+id/mediumTable"
             android:layout_toEndOf="@+id/smallAvailability"
             android:layout_marginStart="20dp"
-            android:text="5"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -183,7 +182,6 @@
             android:layout_above="@+id/largeTable"
             android:layout_toEndOf="@+id/mediumAvailability"
             android:layout_marginStart="20dp"
-            android:text="5"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -195,7 +193,6 @@
             android:layout_alignBottom="@+id/largeAvailability"
             android:layout_toEndOf="@+id/largeAvailability"
             android:layout_marginStart="20dp"
-            android:text="5"
             android:textColor="@android:color/black"
             android:textSize="18sp"
             android:textStyle="bold" />

@@ -13,7 +13,7 @@ public class DineInOrder extends Order implements Serializable{
 
 
     public DineInOrder(HashMap<String,ItemOrdered> orderList, int orderNo, double eta, int numPax) {
-        super(orderList, orderNo, eta);
+        //super(orderList, orderNo, eta);
         this.numPax = numPax;
     }
 

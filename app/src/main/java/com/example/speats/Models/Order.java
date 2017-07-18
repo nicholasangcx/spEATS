@@ -12,14 +12,20 @@ public class Order implements Serializable{
     HashMap<String,ItemOrdered> orderList;
     int orderNo;
     double eta;
+    int numPax;
 
     public Order() {
     }
 
-    public Order(HashMap<String,ItemOrdered> orderList, int orderNo, double eta) {
+    public Order(HashMap<String,ItemOrdered> orderList, int orderNo, double eta, int numPax) {
         this.orderList = orderList;
         this.orderNo = orderNo;
         this.eta = eta;
+        this.numPax = numPax;
+    }
+
+    public int getNumPax() {
+        return numPax;
     }
 
     public HashMap<String,ItemOrdered> getOrderList() {

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
-        android:text="sn" />
+        android:text="" />
 
     <TextView
         android:id="@+id/byorder_name"
