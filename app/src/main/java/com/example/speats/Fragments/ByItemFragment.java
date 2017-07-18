@@ -127,7 +127,6 @@ public class ByItemFragment extends Fragment {
             }
 
         });
-        Log.d("abcdefg", "lol");
     }
 
     private void deleteItem(String itemOrdered) {

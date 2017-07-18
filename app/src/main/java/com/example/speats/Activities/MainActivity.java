@@ -40,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         restaurant = (Restaurant) extras.getSerializable("RESTAURANT");
         restaurantName = restaurant.getName();
-       // Log.d("abcdefg", restaurantName);
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
 /*
         databaseReference.addValueEventListener(new ValueEventListener() {
