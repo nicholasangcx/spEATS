@@ -26,6 +26,7 @@ public class EditMenuActivity extends AppCompatActivity {
     EditText foodPrice;
     EditText foodDescription;
     EditText foodPosterPath;
+    String restaurantName;
 
     DatabaseReference databaseFoodMenu;
 
@@ -35,12 +36,13 @@ public class EditMenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editmenu);
         Bundle recdData = getIntent().getExtras();
         final MenuItem editFood = (MenuItem) recdData.get("food_itemName");
+        restaurantName = (String) recdData.get("resName");
 
         TextView textView = (TextView) findViewById(R.id.editMenuHeader);
         final String oldName = editFood.getItemName();
         textView.setText(oldName);
 
-        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+        databaseFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
 
         foodName = (EditText) findViewById(R.id.editMenuNameInput);
         foodPrice = (EditText) findViewById(R.id.editMenuPriceInput);

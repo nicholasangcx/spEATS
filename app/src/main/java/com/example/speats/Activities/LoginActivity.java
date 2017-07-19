@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                     startActivity(i);
                 } else {
                     Context context = getApplicationContext();
-                    CharSequence text = "Incorrect email or password";
+                    CharSequence text = "Incorrect username or password";
                     int duration = Toast.LENGTH_LONG;
 
                     Toast toast = Toast.makeText(context, text, duration);

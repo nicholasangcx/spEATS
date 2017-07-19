@@ -89,6 +89,7 @@ public class ExistingMenuFragment extends Fragment {
                         MenuItem value = (MenuItem) listView.getItemAtPosition(position);
                         Intent intent = new Intent(getActivity(), EditMenuActivity.class);
                         intent.putExtra("food_itemName", value);
+                        intent.putExtra("resName", restaurantName);
                         startActivity(intent);
                         dialog.dismiss();
                     }
@@ -149,7 +150,7 @@ public class ExistingMenuFragment extends Fragment {
     }
 
     private void deleteFood(String id, String category) {
-        DatabaseReference drFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child("Putera Puteri");
+        DatabaseReference drFoodMenu = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
 
         if (category.equals("Mains")) {
             DatabaseReference ref = drFoodMenu.child("mainsMenu").child(id);
