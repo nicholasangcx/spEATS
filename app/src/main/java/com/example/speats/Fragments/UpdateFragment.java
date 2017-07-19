@@ -126,7 +126,7 @@ public class UpdateFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15);
+                int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15) + 600;
                 String small = "small" + String.valueOf(time);
                 String medium = "medium" + String.valueOf(time);
                 String large = "large" + String.valueOf(time);
@@ -158,7 +158,7 @@ public class UpdateFragment extends Fragment implements View.OnClickListener {
     }
 
     private void increaseSmall(long smallNo) {
-        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15);
+        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15) + 600;
         databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
         DatabaseReference ref = databaseReference.child("map");
         long number = smallNo;
@@ -167,7 +167,7 @@ public class UpdateFragment extends Fragment implements View.OnClickListener {
     }
 
     private void decreaseSmall(long smallNo) {
-        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15);
+        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15) + 600;
         databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
         DatabaseReference ref = databaseReference.child("map");
         long number = smallNo;
@@ -176,7 +176,7 @@ public class UpdateFragment extends Fragment implements View.OnClickListener {
     }
 
     private void increaseMedium(long mediumNo) {
-        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15);
+        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15) + 600;
         databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
         DatabaseReference ref = databaseReference.child("map");
         long number = mediumNo;
@@ -185,7 +185,7 @@ public class UpdateFragment extends Fragment implements View.OnClickListener {
     }
 
     private void decreaseMedium(long mediumNo) {
-        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15);
+        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15) + 600;
         databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
         DatabaseReference ref = databaseReference.child("map");
         long number = mediumNo;
@@ -194,7 +194,7 @@ public class UpdateFragment extends Fragment implements View.OnClickListener {
     }
 
     private void increaseLarge(long largeNo) {
-        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15);
+        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15) + 600;
         databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
         DatabaseReference ref = databaseReference.child("map");
         long number = largeNo;
@@ -203,7 +203,7 @@ public class UpdateFragment extends Fragment implements View.OnClickListener {
     }
 
     private void decreaseLarge(long largeNo) {
-        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15);
+        int time = Calendar.HOUR * 100 + (Calendar.MINUTE / 15) + 600;
         databaseReference = FirebaseDatabase.getInstance().getReference("Restaurants").child(restaurantName);
         DatabaseReference ref = databaseReference.child("map");
         long number = largeNo;
