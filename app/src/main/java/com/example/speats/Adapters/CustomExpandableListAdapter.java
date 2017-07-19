@@ -13,6 +13,7 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
 import com.example.speats.Models.ByItem;
+import com.example.speats.Models.ItemOrdered;
 import com.example.speats.R;
 
 import java.util.ArrayList;
@@ -21,7 +22,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
 
     private Context context;
     private ArrayList<String> expandableListTitle;
-    private ArrayList<ArrayList<ByItem>> expandableListDetail;
+    private ArrayList<ArrayList<ItemOrdered>> expandableListDetail;
 
     private static class ViewHolder {
         TextView name;
@@ -30,7 +31,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     }
 
     public CustomExpandableListAdapter(Context context, ArrayList<String> expandableListTitle,
-                                       ArrayList<ArrayList<ByItem>> expandableListDetail) {
+                                       ArrayList<ArrayList<ItemOrdered>> expandableListDetail) {
         this.context = context;
         this.expandableListDetail = expandableListDetail;
         this.expandableListTitle = expandableListTitle;
@@ -49,7 +50,7 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public View getChildView(int listPosition, final int expandedListPosition,
                              boolean isLastChild, View convertView, ViewGroup parent) {
-        final ByItem ByItem = (ByItem) getChild(listPosition, expandedListPosition);
+        final ItemOrdered ByItem = (ItemOrdered) getChild(listPosition, expandedListPosition);
         ViewHolder viewHolder;
 
         viewHolder = new ViewHolder();
@@ -60,9 +61,9 @@ public class CustomExpandableListAdapter extends BaseExpandableListAdapter {
         viewHolder.quantity = (TextView) convertView.findViewById(R.id.byorder_quantity);
         viewHolder.price = (TextView) convertView.findViewById(R.id.byorder_price);
 
-        viewHolder.name.setText(ByItem.getMenuItem().getItemName());
+        viewHolder.name.setText(ByItem.getName());
         viewHolder.quantity.setText(String.valueOf(ByItem.getQty()));
-        viewHolder.price.setText("$"+String.valueOf(ByItem.getMenuItem().getPrice()));
+        viewHolder.price.setText("$"+String.valueOf(ByItem.getPrice()));
         return convertView;
     }
 

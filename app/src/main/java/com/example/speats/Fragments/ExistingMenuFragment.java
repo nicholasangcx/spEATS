@@ -136,8 +136,8 @@ public class ExistingMenuFragment extends Fragment {
                     MenuItem foodMenu = foodMenuSnapShot.getValue(MenuItem.class);
                     foodMenuList.add(foodMenu);
                 }
-
-                adapter = new ExistingMenuCustomAdapter(foodMenuList, getActivity().getApplicationContext());
+                if (getActivity() != null)
+                    adapter = new ExistingMenuCustomAdapter(foodMenuList, getActivity());
                 listView.setAdapter(adapter);
             }
 

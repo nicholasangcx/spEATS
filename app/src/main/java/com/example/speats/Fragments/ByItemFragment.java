@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.speats.Activities.MainActivity;
 import com.example.speats.Adapters.ByItemCustomAdapter;
 import com.example.speats.Models.ByItem;
 import com.example.speats.Models.ItemOrdered;
@@ -79,7 +80,7 @@ public class ByItemFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                     long arg3) {
-                final ItemOrdered item = (ItemOrdered) adapter.getItemAtPosition(position);
+                final ByItem item = (ByItem) adapter.getItemAtPosition(position);
                 AlertDialog.Builder ad = new AlertDialog.Builder(getActivity());
                 ad.setCancelable(false);
                 ad.setTitle("Remove");
@@ -87,7 +88,7 @@ public class ByItemFragment extends Fragment {
                 ad.setPositiveButton(getActivity().getString(R.string.alert_okay), new DialogInterface.OnClickListener() {
 
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteItem(item.getMenuItem().getItemName()+String.valueOf(item.getEta()));
+                        deleteItem(item.getMenuItem().getItemName()+ " " + String.valueOf((int)item.getEta()));
                         dialog.dismiss();
                     }
                 });
@@ -119,7 +120,8 @@ public class ByItemFragment extends Fragment {
                     foodItems.add(foodMenu);
                 }
 
-                adapter = new ByItemCustomAdapter(foodItems, getActivity().getApplicationContext());
+                if (getActivity() != null)
+                    adapter = new ByItemCustomAdapter(foodItems, getActivity());
                 listView.setAdapter(adapter);
 
             }

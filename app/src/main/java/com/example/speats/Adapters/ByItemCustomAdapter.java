@@ -61,7 +61,7 @@ public class ByItemCustomAdapter extends ArrayAdapter<ByItem> {
         viewHolder.sn.setText("" + number);
         viewHolder.foodName.setText(foodItems.getMenuItem().getItemName());
         viewHolder.quantity.setText(String.valueOf(foodItems.getQty()));
-        viewHolder.time.setText(String.valueOf(foodItems.getEta()));
+        viewHolder.time.setText(String.valueOf((int)foodItems.getEta()));
         // Return the completed view to render on screen
         return convertView;
     }

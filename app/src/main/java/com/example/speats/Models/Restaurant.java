@@ -17,15 +17,17 @@ public class Restaurant implements Serializable{
     private String posterPath;
     private HashMap<String, Order> orderMaster;
     private HashMap<String, ByItem> byItemMaster;
-    private Double numSeats;
-    private Double occupiedSeats;
     private int orderNumSoFar;
+    private int smallTable;
+    private int mediumTable;
+    private int largeTable;
+    private HashMap<String, Integer> map;
 
     public Restaurant(){
 
     }
 
-    public Restaurant(String name, String overview, HashMap<String, MenuItem> mainsMenu, HashMap<String, MenuItem> sidesMenu, HashMap<String, MenuItem> drinksMenu, String posterPath, HashMap<String, Order> orderMaster, HashMap<String, ByItem> byItemMaster, Double numSeats, Double occupiedSeats, int orderNumSoFar) {
+    public Restaurant(String name, String overview, HashMap<String, MenuItem> mainsMenu, HashMap<String, MenuItem> sidesMenu, HashMap<String, MenuItem> drinksMenu, String posterPath, HashMap<String, Order> orderMaster, HashMap<String, ByItem> byItemMaster, int orderNumSoFar, int smallTable, int mediumTable, int largeTable, HashMap<String, Integer> map) {
         this.name = name;
         this.overview = overview;
         MainsMenu = mainsMenu;
@@ -34,9 +36,43 @@ public class Restaurant implements Serializable{
         this.posterPath = posterPath;
         this.orderMaster = orderMaster;
         this.byItemMaster = byItemMaster;
-        this.numSeats = numSeats;
-        this.occupiedSeats = occupiedSeats;
         this.orderNumSoFar = orderNumSoFar;
+        this.smallTable = smallTable;
+        this.mediumTable = mediumTable;
+        this.largeTable = largeTable;
+        this.map = map;
+    }
+
+    public HashMap<String, Integer> getMap() {
+        return map;
+    }
+
+    public void setMap(HashMap<String, Integer> map) {
+        this.map = map;
+    }
+
+    public int getSmallTable() {
+        return smallTable;
+    }
+
+    public void setSmallTable(int smallTable) {
+        this.smallTable = smallTable;
+    }
+
+    public int getMediumTable() {
+        return mediumTable;
+    }
+
+    public void setMediumTable(int mediumTable) {
+        this.mediumTable = mediumTable;
+    }
+
+    public int getLargeTable() {
+        return largeTable;
+    }
+
+    public void setLargeTable(int largeTable) {
+        this.largeTable = largeTable;
     }
 
     public int getOrderNumSoFar() {
@@ -61,22 +97,6 @@ public class Restaurant implements Serializable{
 
     public void setByItemMaster(HashMap<String, ByItem> byItemMaster) {
         this.byItemMaster = byItemMaster;
-    }
-
-    public Double getNumSeats() {
-        return numSeats;
-    }
-
-    public void setNumSeats(Double numSeats) {
-        this.numSeats = numSeats;
-    }
-
-    public Double getOccupiedSeats() {
-        return occupiedSeats;
-    }
-
-    public void setOccupiedSeats(Double occupiedSeats) {
-        this.occupiedSeats = occupiedSeats;
     }
 
     public HashMap<String, Order> getOrderMaster() {
@@ -135,9 +155,32 @@ public class Restaurant implements Serializable{
         this.posterPath = posterPath;
     }
 
-    public int getAvailability() {
-        Double d = (1 - getOccupiedSeats() /getNumSeats()) * 100;
-        return d.intValue();
+    public int getAvailability(String time) {
+        return (int) ((1 - ((double)(map.get("large" + time) + map.get("medium" + time) + map.get("small" + time)) /(double)(largeTable + mediumTable + smallTable))) * 100);
+
     }
 
+    public int getOccupiedSmall(String time) {
+        return map.get("small" + time);
+    }
+
+    public int getOccupiedMedium(String time) {
+        return map.get("medium" + time);
+    }
+
+    public int getOccupiedLarge(String time) {
+        return map.get("large" + time);
+    }
+
+    public void incSmall(String time){
+        map.put("small" + time, map.get("small" + time) + 1);
+    }
+
+    public void incMedium(String time){
+        map.put("medium" + time, map.get("medium" + time) + 1);
+    }
+
+    public void incLarge(String time) {
+        map.put("large" + time, map.get("large" + time) + 1);
+    }
 }

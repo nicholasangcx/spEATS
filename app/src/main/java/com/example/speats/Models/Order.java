@@ -17,7 +17,7 @@ public class Order implements Serializable{
     public Order() {
     }
 
-    public Order(HashMap<String,ItemOrdered> orderList, int orderNo, double eta, int numPax) {
+    public Order(HashMap<String, ItemOrdered> orderList, int orderNo, double eta, int numPax) {
         this.orderList = orderList;
         this.orderNo = orderNo;
         this.eta = eta;
@@ -26,6 +26,10 @@ public class Order implements Serializable{
 
     public int getNumPax() {
         return numPax;
+    }
+
+    public void setNumPax(int numPax) {
+        this.numPax = numPax;
     }
 
     public HashMap<String,ItemOrdered> getOrderList() {

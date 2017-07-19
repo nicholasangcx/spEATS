@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.speats.Adapters.CustomExpandableListAdapter;
 import com.example.speats.Models.ByItem;
+import com.example.speats.Models.ItemOrdered;
 import com.example.speats.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,7 +33,7 @@ public class ByOrderFragment extends Fragment {
     ExpandableListView expandableListView;
     private static CustomExpandableListAdapter expandableListAdapter;
     ArrayList<String> expandableListTitle;
-    ArrayList<ArrayList<ByItem>> expandableListDetail;
+    ArrayList<ArrayList<ItemOrdered>> expandableListDetail;
 
     String restaurantName;
     DatabaseReference databaseFoodMenu;
@@ -151,16 +152,16 @@ public class ByOrderFragment extends Fragment {
                     String orderNo = orderNoSnapShot.getKey();
                     expandableListTitle.add(orderNo);
 
-                    ArrayList<ByItem> foodOrderList = new ArrayList<>();
+                    ArrayList<ItemOrdered> foodOrderList = new ArrayList<>();
                     for (DataSnapshot orderListSnapShot : orderNoSnapShot.child("orderList").getChildren()) {
                         //String itemName = orderListSnapShot.getKey();
-                        ByItem byOrder = orderListSnapShot.getValue(ByItem.class);
+                        ItemOrdered byOrder = orderListSnapShot.getValue(ItemOrdered.class);
                         foodOrderList.add(byOrder);
                     }
                     expandableListDetail.add(foodOrderList);
                 }
-
-                expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
+                if (getActivity()  != null)
+                    expandableListAdapter = new CustomExpandableListAdapter(getActivity(), expandableListTitle, expandableListDetail);
                 expandableListView.setAdapter(expandableListAdapter);
             }
 

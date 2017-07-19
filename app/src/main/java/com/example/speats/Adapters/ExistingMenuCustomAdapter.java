@@ -18,7 +18,6 @@ import java.util.ArrayList;
 
 public class ExistingMenuCustomAdapter extends ArrayAdapter<MenuItem> {
 
-    private ArrayList<MenuItem> foodMenu;
     Context context;
 
     public static class ViewHolder {
@@ -29,7 +28,6 @@ public class ExistingMenuCustomAdapter extends ArrayAdapter<MenuItem> {
 
     public ExistingMenuCustomAdapter(ArrayList<MenuItem> foodMenu, Context context) {
         super(context, R.layout.existingmenu_listrow, foodMenu);
-        this.foodMenu = foodMenu;
         this.context = context;
     }
 
@@ -40,6 +38,7 @@ public class ExistingMenuCustomAdapter extends ArrayAdapter<MenuItem> {
         if (convertView == null) {
             viewHolder = new ExistingMenuCustomAdapter.ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
+            //inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.existingmenu_listrow, parent, false);
             viewHolder.name = (TextView) convertView.findViewById(R.id.menuName);
             viewHolder.price = (TextView) convertView.findViewById(R.id.menuPrice);
